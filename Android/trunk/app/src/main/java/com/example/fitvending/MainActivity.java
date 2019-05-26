@@ -94,8 +94,11 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
-        } else if (id == R.id.nav_Rutina){
-            intent = new Intent(this,RutinaActivity.class);
+        } else if (id == R.id.nav_Rutina) {
+            intent = new Intent(this, RutinaActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_Alimentacion) {
+            intent = new Intent(this, AlimentacionActivity.class);
             startActivity(intent);
         }
 

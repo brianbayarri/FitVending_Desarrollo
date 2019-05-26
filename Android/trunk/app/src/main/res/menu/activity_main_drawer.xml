@@ -25,6 +25,11 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/menu_Rutina"
             />
+        <item
+            android:id="@+id/nav_Alimentacion"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Alimentacion"
+            />
 
 
     </group>
