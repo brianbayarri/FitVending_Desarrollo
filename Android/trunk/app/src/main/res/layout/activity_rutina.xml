@@ -4,7 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RutinaActivity">
+    tools:context=".RutinaActivity"
+    android:background="#6DBE11"
+    >
+
+    <RelativeLayout
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:background="#FFFFFF"
+        >
+
 
     <TextView
         android:id="@+id/ActividadTitle"
@@ -15,40 +25,37 @@
         android:layout_marginBottom="49dp"
         android:text="Musculo" />
 
-    <Spinner
-        android:id="@+id/ActividadSpinner"
-        android:layout_width="330dp"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="200dp"
-        android:layout_marginLeft="30dp"
+        <Spinner
+            android:id="@+id/ActividadSpinner"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="200dp"
+            android:layout_marginLeft="30dp" />
 
+        <TextView
+            android:id="@+id/RutEjTitle"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="125dp"
+            android:text="Rutina de ejercicios"
 
-        />
+            />
 
-    <TextView
-        android:id="@+id/RutEjTitle"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginVertical="20dp"
-        android:layout_marginLeft="125dp"
-        android:text="Rutina de ejercicios"
-
-        />
-
-    <ImageView
-        android:id="@+id/MusculoImage"
-        android:layout_width="130dp"
-        android:layout_height="150dp"
-        android:src="@drawable/musculobrazo"
-        android:layout_marginVertical="280dp"
-        android:layout_marginLeft="30dp" />
+        <ImageView
+            android:id="@+id/MusculoImage"
+            android:layout_width="116dp"
+            android:layout_height="121dp"
+            android:layout_marginVertical="280dp"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/musculobrazo" />
 
     <TextView
         android:id="@+id/DuracionLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
+        android:layout_marginStart="170dp"
         android:layout_marginTop="308dp"
         android:text="Duracion" />
 
@@ -108,4 +115,5 @@
         android:layout_marginTop="310dp"
         />
 
+    </RelativeLayout>
 </RelativeLayout>
