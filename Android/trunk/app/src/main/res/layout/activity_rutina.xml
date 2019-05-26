@@ -8,6 +8,11 @@
     android:background="#6DBE11"
     >
 
+
+
+
+
+
     <RelativeLayout
         android:layout_marginTop="60dp"
         android:layout_width="match_parent"
@@ -23,7 +28,11 @@
         android:layout_marginVertical="125dp"
         android:layout_marginLeft="25dp"
         android:layout_marginBottom="49dp"
-        android:text="Musculo" />
+        android:text="Musculo"
+        android:background="#6DBD11"
+        android:gravity="center"
+        android:textColor="#FCF7F7"
+        />
 
         <Spinner
             android:id="@+id/ActividadSpinner"
@@ -37,11 +46,13 @@
             android:layout_width="150dp"
             android:layout_height="30dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="40dp"
             android:layout_marginLeft="125dp"
-            android:text="Rutina de ejercicios"
-
-            />
+            android:layout_marginTop="20dp"
+            android:background="#6DBD11"
+            android:gravity="center"
+            android:textColor="#FCF7F7"
+            android:text="Rutina de ejercicios" />
 
         <ImageView
             android:id="@+id/MusculoImage"
@@ -57,7 +68,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="170dp"
         android:layout_marginTop="308dp"
-        android:text="Duracion" />
+        android:text="Duracion"
+        android:background="#6DBD11"
+        android:gravity="center"
+        android:textColor="#FCF7F7"
+        />
 
     <EditText
         android:id="@+id/RutinaInputMinutos"
@@ -100,7 +115,7 @@
         android:layout_width="300dp"
         android:layout_height="37dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginVertical="560dp"
+        android:layout_marginVertical="530dp"
         android:layout_marginLeft="55dp"
         android:text="Salir"
 
@@ -113,7 +128,23 @@
         android:text="Minutos"
         android:layout_marginStart="300dp"
         android:layout_marginTop="310dp"
+        android:background="#6DBD11"
+        android:gravity="center"
+        android:textColor="#FCF7F7"
         />
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/lbl_RutinaTitulo"
+        android:layout_width="200dp"
+        android:layout_height="29dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="FIT VENDING "
+
+
+        android:textColor="#FCF7F7"
+        android:textSize="24sp" />
 </RelativeLayout>
