@@ -57,7 +57,7 @@
         <ImageView
             android:id="@+id/MusculoImage"
             android:layout_width="116dp"
-            android:layout_height="121dp"
+            android:layout_height="400dp"
             android:layout_marginVertical="280dp"
             android:layout_marginLeft="30dp"
             android:src="@drawable/musculobrazo" />

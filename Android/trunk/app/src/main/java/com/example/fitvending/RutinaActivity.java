@@ -28,11 +28,12 @@ public class RutinaActivity extends AppCompatActivity
 {
          @Override
         protected void onCreate (Bundle savedInstanceState){
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rutina);
         Button ButtonSalir = findViewById(R.id.RutinaSalirButton);
         ButtonSalir.setOnClickListener(this);
-        Spinner Actividades = findViewById(R.id.ActividadSpinner);
+             Spinner Actividades = findViewById(R.id.ActividadSpinner);
 
              ArrayList<String> lista = new ArrayList<>();
              lista.add("Correr");

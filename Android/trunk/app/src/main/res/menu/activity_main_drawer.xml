@@ -31,6 +31,12 @@
             android:title="Alimentacion"
             />
 
+        <item
+            android:id="@+id/nav_Perfil"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Perfil"
+            />
+
 
     </group>
 
