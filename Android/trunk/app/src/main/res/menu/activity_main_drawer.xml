@@ -37,6 +37,11 @@
             android:title="Perfil"
             />
 
+        <item
+            android:id="@+id/nav_Desafios"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Desafios"
+            />
 
     </group>
 
