@@ -159,7 +159,7 @@
         />
 
     <Button
-        android:id="@+id/RutinaSaveButton"
+        android:id="@+id/btn_guardar"
         android:layout_width="155dp"
         android:layout_height="37dp"
         android:layout_marginVertical="540dp"
@@ -168,7 +168,7 @@
         />
 
     <Button
-        android:id="@+id/RutinaCancelarButton"
+        android:id="@+id/btn_cancelar"
         android:layout_width="155dp"
         android:layout_height="37dp"
         android:layout_marginVertical="540dp"
@@ -177,7 +177,7 @@
         />
 
     <Button
-        android:id="@+id/RutinaSalirButton"
+        android:id="@+id/btn_salir"
         android:layout_width="300dp"
         android:layout_height="37dp"
         android:layout_centerHorizontal="true"
