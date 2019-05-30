@@ -122,10 +122,10 @@
             android:textColor="#FFFFFF" />
 
         <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="69dp"
+            android:id="@+id/sp_sexo"
+            android:layout_width="80dp"
             android:layout_height="33dp"
-            android:layout_marginStart="322dp"
+            android:layout_marginStart="320dp"
             android:layout_marginTop="300dp" />
 
         <TextView
@@ -144,7 +144,7 @@
             android:id="@+id/lbl_CaloriasNum"
             android:layout_width="300dp"
             android:layout_height="25dp"
-            android:text="0/0"
+            android:text="0.0/0.0"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="410dp"
             android:gravity="center" />
@@ -188,6 +188,13 @@
             android:layout_marginTop="530dp"
             android:gravity="center"
             android:text="0" />
+
+        <Button
+            android:id="@+id/boton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="130dp"
+            android:text="Button" />
 
 
     </RelativeLayout>
