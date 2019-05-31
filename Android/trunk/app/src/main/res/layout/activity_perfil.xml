@@ -93,19 +93,20 @@
             android:layout_width="82dp"
             android:layout_height="33dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="270dp"
             android:background="#6DBE11"
             android:gravity="center"
 
             android:text="Peso"
             android:textColor="#FFFFFF" />
 
+
         <EditText
             android:id="@+id/editlbl_Peso"
             android:layout_width="72dp"
             android:layout_height="33dp"
             android:layout_marginStart="110dp"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="270dp"
             android:ems="10"
             android:inputType="number" />
 
@@ -114,7 +115,7 @@
             android:layout_width="82dp"
             android:layout_height="33dp"
             android:layout_marginStart="230dp"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="270dp"
             android:background="#6DBE11"
             android:gravity="center"
 
@@ -126,14 +127,33 @@
             android:layout_width="80dp"
             android:layout_height="33dp"
             android:layout_marginStart="320dp"
-            android:layout_marginTop="300dp" />
+            android:layout_marginTop="270dp" />
+
+        <TextView
+            android:id="@+id/lbl_Ejercicio"
+            android:layout_width="82dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="340dp"
+            android:background="#6DBE11"
+            android:gravity="center"
+
+            android:text="Ejercicio"
+            android:textColor="#FFFFFF" />
+
+        <Spinner
+            android:id="@+id/sp_ejercicio"
+            android:layout_width="300dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="340dp" />
 
         <TextView
             android:id="@+id/lbl_Calorias"
             android:layout_width="300dp"
             android:layout_height="25dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="380dp"
+            android:layout_marginTop="400dp"
             android:background="#6DBE11"
             android:gravity="center"
 
@@ -146,7 +166,7 @@
             android:layout_height="25dp"
             android:text="0.0/0.0"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="410dp"
+            android:layout_marginTop="430dp"
             android:gravity="center" />
 
         <TextView

@@ -22,16 +22,24 @@ import java.util.ArrayList;
 
 
 public class RutinaActivity extends AppCompatActivity
-                            implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
+                            implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
+    public void reload() {
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
+    }
 
-{
-         @Override
+    @Override
         protected void onCreate (Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rutina);
         Button ButtonSalir = findViewById(R.id.RutinaSalirButton);
+        Button cancelar=findViewById(R.id.RutinaCancelarButton);
         ButtonSalir.setOnClickListener(this);
              Spinner Actividades = findViewById(R.id.ActividadSpinner);
 
@@ -43,6 +51,13 @@ public class RutinaActivity extends AppCompatActivity
 
              ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,lista);
              Actividades.setAdapter(adaptador);
+
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reload();
+            }
+        });
 
          }
 
