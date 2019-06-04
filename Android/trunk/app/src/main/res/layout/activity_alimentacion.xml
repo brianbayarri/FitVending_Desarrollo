@@ -94,12 +94,12 @@
         android:text="Bebida" />
 
     <TextView
-        android:id="@+id/txt_porcion3"
+        android:id="@+id/txt_vasos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="360dp"
         android:layout_marginLeft="250dp"
-        android:text="Porcion/Cant" />
+        android:text="Vasos (1 = 200ml)" />
 
     <TextView
         android:id="@+id/txt_calorias"
@@ -151,7 +151,7 @@
         />
 
     <Spinner
-        android:id="@+id/sp_porcion3"
+        android:id="@+id/sp_vasos"
         android:layout_width="128dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="390dp"
