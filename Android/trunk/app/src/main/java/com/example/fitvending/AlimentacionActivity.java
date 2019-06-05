@@ -223,7 +223,9 @@ public class AlimentacionActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                Alimento a1,a2,a3;
-               String id, nombre, porcion, calorias="";
+               String id, nombre;
+               int porcion;
+               double calorias=0.0;
 
                ///el id de cada alimento estara conformador por 3 caracteres: el primero dice el numero de posicion en el spinner
                ///                                                            el segundo es la primera letra del alimento
@@ -234,56 +236,56 @@ public class AlimentacionActivity extends AppCompatActivity {
 
                id = Integer.toString(sp_plato.getSelectedItemPosition()) + sp_plato.getSelectedItem().toString().substring(0,1) + "P";
                nombre = sp_plato.getSelectedItem().toString();
-               porcion = sp_porcion1.getSelectedItem().toString();
+               porcion = sp_porcion1.getSelectedItemPosition()+1;
 
                switch(id) {
 
                    case "0HP":
-                       calorias=Double.toString(300.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=300.0*porcion;
                        break;
 
                    case "1MP":
-                       calorias=Double.toString(100.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=100.0*porcion;
                        break;
 
                    case "2OP":
-                       calorias=Double.toString(250.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=250*porcion;
                        break;
 
                    case "3TP":
-                       calorias=Double.toString(220.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "0CP":
-                       calorias=Double.toString(100.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "1EP":
-                       calorias=Double.toString(150.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "2PP":
-                       calorias=Double.toString(170.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "3PP":
-                       calorias=Double.toString(45.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "0BP":
-                       calorias=Double.toString(80.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "1BP":
-                       calorias=Double.toString(100.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "2SP":
-                       calorias=Double.toString(120.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "3YP":
-                       calorias=Double.toString(70.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "4NP":
@@ -297,24 +299,24 @@ public class AlimentacionActivity extends AppCompatActivity {
 
                id=Integer.toString(sp_guarnicion.getSelectedItemPosition()) + sp_guarnicion.getSelectedItem().toString().substring(0,1) + "G";
                nombre = sp_guarnicion.getSelectedItem().toString();
-               porcion = sp_porcion2.getSelectedItem().toString();
+               porcion = sp_porcion2.getSelectedItemPosition()+1;
 
                 switch(id) {
 
                     case "0AG":
-                        calorias=Double.toString(150.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "1EG":
-                        calorias=Double.toString(140.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "2PG":
-                        calorias=Double.toString(200.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "3PG":
-                        calorias=Double.toString(221.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "4NG":
@@ -327,40 +329,40 @@ public class AlimentacionActivity extends AppCompatActivity {
 
                 id=Integer.toString(sp_bebida.getSelectedItemPosition()) + sp_bebida.getSelectedItem().toString().substring(0,1) + "B";
                 nombre = sp_bebida.getSelectedItem().toString();
-                porcion = sp_vasos.getSelectedItem().toString();
+                porcion = sp_vasos.getSelectedItemPosition()+1;
 
                 switch(id) {
 
                     case "0CB":
-                        calorias=Double.toString(150.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "1CB":
-                        calorias=Double.toString(140.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "2JB":
-                        calorias=Double.toString(200.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "3TB":
-                        calorias=Double.toString(221.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "0AB":
-                        calorias=Double.toString(150.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "1AB":
-                        calorias=Double.toString(140.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "2CB":
-                        calorias=Double.toString(200.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "3GB":
-                        calorias=Double.toString(221.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "4NB":

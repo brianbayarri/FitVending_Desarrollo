@@ -1,16 +1,16 @@
 package com.example.fitvending;
 
-public class Alimento {
+public class Rutina {
 
     private String id;
     private String nombre;
-    private int porcion;
+    private int minutos;
     private double calorias;
 
-    public Alimento(String id, String nombre, int porcion, double calorias) {
+    public Rutina(String id, String nombre, int minutos, double calorias) {
         this.id = id;
         this.nombre = nombre;
-        this.porcion = porcion;
+        this.minutos = minutos;
         this.calorias = calorias;
     }
 
@@ -30,12 +30,12 @@ public class Alimento {
         this.nombre = nombre;
     }
 
-    public int getPorcion() {
-        return porcion;
+    public int getMinutos() {
+        return minutos;
     }
 
-    public void setPorcion(int porcion) {
-        this.porcion = porcion;
+    public void setMinutos(int minutos) {
+        this.minutos = minutos;
     }
 
     public double getCalorias() {

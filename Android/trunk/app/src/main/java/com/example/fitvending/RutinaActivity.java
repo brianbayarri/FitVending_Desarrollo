@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -23,6 +24,10 @@ import java.util.ArrayList;
 
 public class RutinaActivity extends AppCompatActivity
                             implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+
+    Button ButtonSalir, cancelar, guardar;
+    Spinner sp_actividad;
+    EditText lbl_minutos;
 
     public void reload() {
         Intent intent = getIntent();
@@ -38,19 +43,32 @@ public class RutinaActivity extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rutina);
-        Button ButtonSalir = findViewById(R.id.RutinaSalirButton);
-        Button cancelar=findViewById(R.id.RutinaCancelarButton);
+
+        ButtonSalir = findViewById(R.id.RutinaSalirButton);
+        cancelar=findViewById(R.id.RutinaCancelarButton);
+        guardar=findViewById(R.id.RutinaSaveButton);
+        sp_actividad=findViewById(R.id.ActividadSpinner);
+        lbl_minutos=findViewById(R.id.RutinaInputMinutos);
+
         ButtonSalir.setOnClickListener(this);
              Spinner Actividades = findViewById(R.id.ActividadSpinner);
 
-             ArrayList<String> lista = new ArrayList<>();
-             lista.add("Correr");
-             lista.add("Bicicleta");
-             lista.add("Sentadillas");
-             lista.add("Maquina espalda");
-
-             ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,lista);
-             Actividades.setAdapter(adaptador);
+             ArrayList<String> l_rutina = new ArrayList<>();
+             l_rutina.add("Aerobic (Moderado)");
+             l_rutina.add("Aerobic (Intenso)");
+             l_rutina.add("Bailar");
+             l_rutina.add("Bicicleta");
+             l_rutina.add("Caminar lento (4 km/h)");
+             l_rutina.add("Caminar rapido (7 km/h)");
+             l_rutina.add("Correr lento (9 km/h");
+             l_rutina.add("Correr rapido (12 km/h");
+             l_rutina.add("Hockey");
+             l_rutina.add("Nadar");
+             l_rutina.add("Patinar");
+             l_rutina.add("Pesas");
+             l_rutina.add("Tenis");
+             ArrayAdapter<String> adap_rutina = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,l_rutina);
+             Actividades.setAdapter(adap_rutina);
 
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +77,22 @@ public class RutinaActivity extends AppCompatActivity
             }
         });
 
-         }
+        guardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Rutina r1;
+                String id,nombre;
+                int minutos;
+                double calorias;
+
+                id = sp_actividad.getSelectedItemPosition() + sp_actividad.getSelectedItem().toString().substring(0,1);
+                nombre = sp_actividad.getSelectedItem().toString();
+                minutos = (int)lbl_minutos.getText().toString();
+            }
+        });
+    }
+
 
 
         public void onClick (View view){
