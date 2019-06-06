@@ -33,7 +33,7 @@ public class PerfilActivity extends AppCompatActivity {
         lbl_peso=findViewById(R.id.editlbl_Peso);
         sp_sexo=findViewById(R.id.sp_sexo);
         sp_ejercicio=findViewById(R.id.sp_ejercicio);
-        cal_num=findViewById(R.id.lbl_CaloriasNum);
+        cal_num=findViewById(R.id.lbl_CaloriasNum_P);
         boton=findViewById(R.id.boton);
         final ArrayAdapter<String> adap_sexo;
         final ArrayAdapter<String> adap_ejercicio;

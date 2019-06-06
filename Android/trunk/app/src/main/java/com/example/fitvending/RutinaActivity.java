@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,7 @@ public class RutinaActivity extends AppCompatActivity
     Button ButtonSalir, cancelar, guardar;
     Spinner sp_actividad;
     EditText lbl_minutos;
+    TextView txt_calorias;
 
     public void reload() {
         Intent intent = getIntent();
@@ -49,6 +51,7 @@ public class RutinaActivity extends AppCompatActivity
         guardar=findViewById(R.id.RutinaSaveButton);
         sp_actividad=findViewById(R.id.ActividadSpinner);
         lbl_minutos=findViewById(R.id.RutinaInputMinutos);
+        txt_calorias=findViewById(R.id.lbl_CaloriasNum_R);
 
         ButtonSalir.setOnClickListener(this);
              Spinner Actividades = findViewById(R.id.ActividadSpinner);
@@ -84,11 +87,70 @@ public class RutinaActivity extends AppCompatActivity
                 Rutina r1;
                 String id,nombre;
                 int minutos;
-                double calorias;
+                double calorias=0.0;
 
                 id = sp_actividad.getSelectedItemPosition() + sp_actividad.getSelectedItem().toString().substring(0,1);
                 nombre = sp_actividad.getSelectedItem().toString();
-                minutos = (int)lbl_minutos.getText().toString();
+                minutos = Integer.parseInt(lbl_minutos.getText().toString());
+
+                switch(id) {
+
+                    case "0A":
+                        calorias = 7.3 * minutos;
+                        break;
+
+                    case "1A":
+                        calorias = 11.0 * minutos;
+                        break;
+
+                    case "2B":
+                        calorias = 3.16 * minutos;
+                        break;
+
+                    case "3B":
+                        calorias = 8.1 * minutos;
+                        break;
+
+                    case "4C":
+                        calorias = 3.9 * minutos;
+                        break;
+
+                    case "5C":
+                        calorias = 7.3 * minutos;
+                        break;
+
+                    case "6C":
+                        calorias = 11.7 * minutos;
+                        break;
+
+                    case "7C":
+                        calorias = 15.8 * minutos;
+                        break;
+
+                    case "8H":
+                        calorias = 4.6 * minutos;
+                        break;
+
+                    case "9N":
+                        calorias = 6.66 * minutos;
+                        break;
+
+                    case "10P":
+                        calorias = 5.33 * minutos;
+                        break;
+
+                    case "11P":
+                        calorias = 4.16 * minutos;
+                        break;
+
+                    case "12T":
+                        calorias = 5.83 * minutos;
+                        break;
+                }
+
+                r1 = new Rutina(id,nombre,minutos,calorias);
+
+                txt_calorias.setText(Double.toString(calorias));
             }
         });
     }

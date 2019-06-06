@@ -161,7 +161,7 @@
             android:textColor="#FFFFFF" />
 
         <TextView
-            android:id="@+id/lbl_CaloriasNum"
+            android:id="@+id/lbl_CaloriasNum_P"
             android:layout_width="300dp"
             android:layout_height="25dp"
             android:text="0.0/0.0"

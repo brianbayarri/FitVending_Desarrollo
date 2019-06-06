@@ -116,6 +116,7 @@ public class CronometroActivity extends AppCompatActivity {
 
     private void detenerCronometro() {
         if (empezar){
+
             cronometro.stop();
             detenerse = SystemClock.elapsedRealtime() - cronometro.getBase();
             empezar = false;
@@ -133,6 +134,9 @@ public class CronometroActivity extends AppCompatActivity {
     }
 
     private void calcularCalorias(){
+
+        Rutina rc;
+        String id = modo.substring(0,2) + "_C";
         String [] partes;
         String msgError = "Upss!";
         double minutos, segundos, calQuemadas = 0.0;
@@ -166,5 +170,7 @@ public class CronometroActivity extends AppCompatActivity {
         {
             calorias.setText("Calorias quemadas: " +  String.valueOf(calQuemadas));
         }
+
+        rc = new Rutina(id,modo, (int) (minutos+segundos)*60,calQuemadas);
     }
 }

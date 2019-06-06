@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Switch;
 import android.widget.Spinner;
@@ -23,6 +24,7 @@ public class AlimentacionActivity extends AppCompatActivity {
     Switch sw_desayuno, sw_almuerzo, sw_cena, sw_colacion;
     Spinner sp_plato, sp_guarnicion, sp_bebida, sp_porcion1, sp_porcion2, sp_vasos;
     Button btn_cancelar, btn_guardar;
+    TextView lbl_calorias;
 
     public void reload() {
         Intent intent = getIntent();
@@ -52,6 +54,8 @@ public class AlimentacionActivity extends AppCompatActivity {
         sp_porcion1=findViewById(R.id.sp_porcion1);
         sp_porcion2=findViewById(R.id.sp_porcion2);
         sp_vasos=findViewById(R.id.sp_vasos);
+
+        lbl_calorias=findViewById(R.id.lbl_CaloriasNum_A);
 
         final ArrayAdapter<String> adap_desayuno;
         final ArrayAdapter<String> adap_plato;
@@ -372,6 +376,8 @@ public class AlimentacionActivity extends AppCompatActivity {
                 }
 
                 a3 = new Alimento(id,nombre,porcion,calorias);
+
+                lbl_calorias.setText(Double.toString(a1.getCalorias()+a2.getCalorias()+a3.getCalorias()));
 
             }
         });

@@ -110,6 +110,15 @@
         android:text="Calorias consumidas"
         android:textSize="24sp" />
 
+    <TextView
+        android:id="@+id/lbl_CaloriasNum_A"
+        android:layout_width="300dp"
+        android:layout_height="25dp"
+        android:text="0.0/0.0"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="490dp"
+        android:gravity="center" />
+
     <Spinner
         android:id="@+id/sp_plato_principal"
         android:layout_width="200dp"
