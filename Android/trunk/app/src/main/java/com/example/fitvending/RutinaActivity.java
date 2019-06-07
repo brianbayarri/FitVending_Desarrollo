@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 
 public class RutinaActivity extends AppCompatActivity
-                            implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+                            {
 
     Button ButtonSalir, cancelar, guardar;
     Spinner sp_actividad;
@@ -52,7 +52,6 @@ public class RutinaActivity extends AppCompatActivity
         lbl_minutos=findViewById(R.id.RutinaInputMinutos);
         txt_calorias=findViewById(R.id.lbl_CaloriasNum_R);
 
-        ButtonSalir.setOnClickListener(this);
              Spinner Actividades = findViewById(R.id.ActividadSpinner);
 
              ArrayList<String> l_rutina = new ArrayList<>();
@@ -154,81 +153,6 @@ public class RutinaActivity extends AppCompatActivity
         });
     }
 
-
-
-        public void onClick (View view){
-        // Handle navigation view item clicks here.
-            Intent intent;
-        switch(view.getId()){
-
-            /*case R.id.RutinaSalirButton:
-                intent = new Intent(this,MainActivity.class);
-                startActivity(intent);*/
-
-        }
-
-        }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        Intent intent;
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_tools) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        } else if (id == R.id.nav_Rutina){
-            intent = new Intent(this,RutinaActivity.class);
-            startActivity(intent);
-        }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
 
 }
