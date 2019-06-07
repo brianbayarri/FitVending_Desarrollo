@@ -65,6 +65,7 @@ public class AlimentacionActivity extends AppCompatActivity {
         final ArrayAdapter<String> adap_bebida_plato;
         final ArrayAdapter<String> adap_porcion;
         final ArrayAdapter<String> adap_cantidad;
+        final ArrayAdapter<String> adap_vacio;
 
         ArrayList<String> l_desayuno = new ArrayList<>();
         l_desayuno.add("Huevos y panceta");
@@ -126,6 +127,9 @@ public class AlimentacionActivity extends AppCompatActivity {
         l_cantidad.add("3");
         adap_cantidad = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,l_cantidad);
 
+        ArrayList<String> l_vacio = new ArrayList<>();
+        adap_vacio = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,l_vacio);
+
         sw_desayuno.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean on) {
@@ -139,10 +143,17 @@ public class AlimentacionActivity extends AppCompatActivity {
                     sp_porcion1.setAdapter(adap_porcion);
                     sp_bebida.setAdapter(adap_bebida_des);
                     sp_vasos.setAdapter(adap_cantidad);
+                    sp_guarnicion.setAdapter(adap_vacio);
+                    sp_porcion2.setAdapter(adap_vacio);
+
                 }
                 else {
                     sw_desayuno.setThumbTintList(ColorStateList.valueOf(GRIS_REF));
                     sw_desayuno.setTrackTintList(ColorStateList.valueOf(GRIS_REF));
+                    sp_plato.setAdapter(adap_vacio);
+                    sp_porcion1.setAdapter(adap_vacio);
+                    sp_bebida.setAdapter(adap_vacio);
+                    sp_vasos.setAdapter(adap_vacio);
                 }
             }
         });
@@ -167,6 +178,12 @@ public class AlimentacionActivity extends AppCompatActivity {
                 else {
                     sw_almuerzo.setThumbTintList(ColorStateList.valueOf(GRIS_REF));
                     sw_almuerzo.setTrackTintList(ColorStateList.valueOf(GRIS_REF));
+                    sp_plato.setAdapter(adap_vacio);
+                    sp_porcion1.setAdapter(adap_vacio);
+                    sp_guarnicion.setAdapter(adap_vacio);
+                    sp_porcion2.setAdapter(adap_vacio);
+                    sp_bebida.setAdapter(adap_vacio);
+                    sp_vasos.setAdapter(adap_vacio);
                 }
             }
         });
@@ -190,6 +207,12 @@ public class AlimentacionActivity extends AppCompatActivity {
                 else {
                     sw_cena.setThumbTintList(ColorStateList.valueOf(GRIS_REF));
                     sw_cena.setTrackTintList(ColorStateList.valueOf(GRIS_REF));
+                    sp_plato.setAdapter(adap_vacio);
+                    sp_porcion1.setAdapter(adap_vacio);
+                    sp_guarnicion.setAdapter(adap_vacio);
+                    sp_porcion2.setAdapter(adap_vacio);
+                    sp_bebida.setAdapter(adap_vacio);
+                    sp_vasos.setAdapter(adap_vacio);
                 }
             }
         });
@@ -205,10 +228,16 @@ public class AlimentacionActivity extends AppCompatActivity {
                     sw_cena.setChecked(false);
                     sp_plato.setAdapter(adap_colacion);
                     sp_porcion1.setAdapter(adap_cantidad);
+                    sp_guarnicion.setAdapter(adap_vacio);
+                    sp_porcion2.setAdapter(adap_vacio);
+                    sp_bebida.setAdapter(adap_vacio);
+                    sp_vasos.setAdapter(adap_vacio);
                 }
                 else {
                     sw_colacion.setThumbTintList(ColorStateList.valueOf(GRIS_REF));
                     sw_colacion.setTrackTintList(ColorStateList.valueOf(GRIS_REF));
+                    sp_plato.setAdapter(adap_vacio);
+                    sp_porcion1.setAdapter(adap_vacio);
                 }
             }
 
@@ -295,6 +324,10 @@ public class AlimentacionActivity extends AppCompatActivity {
                    case "4NP":
                        id=null;
                        break;
+
+                   case "":
+                       id=null;
+                       break;
                }
 
                a1 = new Alimento(id,nombre,porcion,calorias);
@@ -324,6 +357,10 @@ public class AlimentacionActivity extends AppCompatActivity {
                         break;
 
                     case "4NG":
+                        id=null;
+                        break;
+
+                    case "":
                         id=null;
                         break;
 
@@ -373,6 +410,9 @@ public class AlimentacionActivity extends AppCompatActivity {
                         id=null;
                         break;
 
+                    case "":
+                        id=null;
+                        break;
                 }
 
                 a3 = new Alimento(id,nombre,porcion,calorias);
