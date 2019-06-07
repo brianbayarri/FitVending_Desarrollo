@@ -21,7 +21,7 @@ public class PerfilActivity extends AppCompatActivity {
     EditText lbl_altura, lbl_edad, lbl_peso;
     Spinner sp_sexo, sp_ejercicio;
     TextView cal_num;
-    Button boton;
+    Button btn_act;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class PerfilActivity extends AppCompatActivity {
         sp_sexo=findViewById(R.id.sp_sexo);
         sp_ejercicio=findViewById(R.id.sp_ejercicio);
         cal_num=findViewById(R.id.lbl_CaloriasNum_P);
-        boton=findViewById(R.id.boton);
+        btn_act=findViewById(R.id.btn_act);
         final ArrayAdapter<String> adap_sexo;
         final ArrayAdapter<String> adap_ejercicio;
 
@@ -53,7 +53,7 @@ public class PerfilActivity extends AppCompatActivity {
         adap_ejercicio = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,l_ejercicio);
         sp_ejercicio.setAdapter(adap_ejercicio);
 
-        boton.setOnClickListener(new View.OnClickListener() {
+        btn_act.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 calcularCal();
@@ -66,6 +66,7 @@ public class PerfilActivity extends AppCompatActivity {
         double cal_diarias=0.0, ej=0.0;
         double altura_f=0.0, peso_f=0.0;
         int edad_f=0;
+
 
         String peso=lbl_peso.getText().toString();
         String altura=lbl_altura.getText().toString();

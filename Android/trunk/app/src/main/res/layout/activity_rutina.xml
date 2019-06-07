@@ -128,16 +128,6 @@
 
         />
 
-    <Button
-        android:id="@+id/RutinaSalirButton"
-        android:layout_width="300dp"
-        android:layout_height="37dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginVertical="530dp"
-        android:layout_marginLeft="55dp"
-        android:text="Salir"
-
-        />
 
     <TextView
         android:id="@+id/RutinaMinutosLabel"

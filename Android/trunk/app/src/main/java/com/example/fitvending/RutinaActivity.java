@@ -46,7 +46,6 @@ public class RutinaActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rutina);
 
-        ButtonSalir = findViewById(R.id.RutinaSalirButton);
         cancelar=findViewById(R.id.RutinaCancelarButton);
         guardar=findViewById(R.id.RutinaSaveButton);
         sp_actividad=findViewById(R.id.ActividadSpinner);
@@ -162,9 +161,9 @@ public class RutinaActivity extends AppCompatActivity
             Intent intent;
         switch(view.getId()){
 
-            case R.id.RutinaSalirButton:
+            /*case R.id.RutinaSalirButton:
                 intent = new Intent(this,MainActivity.class);
-                startActivity(intent);
+                startActivity(intent);*/
 
         }
 
