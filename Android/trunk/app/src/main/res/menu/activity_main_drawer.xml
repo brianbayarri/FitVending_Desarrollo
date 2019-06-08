@@ -48,6 +48,12 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="Pasos"
             />
+        <item
+            android:id="@+id/nav_shake"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Shake"
+            />
+
 
     </group>
 

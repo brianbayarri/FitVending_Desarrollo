@@ -2,8 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fitvending">
 
-    <uses-feature android:name="android.hardware.sensor.stepcounter" android:required="true"/>
-    <uses-feature android:name="android.hardware.sensor.stepdetector" android:required="true"/>
+    <uses-feature
+        android:name="android.hardware.sensor.stepcounter"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.sensor.stepdetector"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ContPasosActivity"></activity>
+        <activity android:name=".ShakeActivity"></activity>
+        <activity android:name=".ContPasosActivity" />
         <activity android:name=".LogrosActivity" />
         <activity android:name=".PerfilActivity" />
         <activity android:name=".AlimentacionActivity" />

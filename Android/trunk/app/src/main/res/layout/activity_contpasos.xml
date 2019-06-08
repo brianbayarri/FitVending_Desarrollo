@@ -14,7 +14,6 @@
         android:layout_marginTop="15px"
         android:background="#6DBE11"
         android:textColor="#FFFFFF"
-
         />
 
     <TextView

@@ -106,10 +106,13 @@ public class MainActivity extends AppCompatActivity
         }   else if (id == R.id.nav_Desafios) {
             intent = new Intent(this, LogrosActivity.class);
             startActivity(intent);
-        }
-           else if (id == R.id.nav_contpasos) {
+        } else if (id == R.id.nav_contpasos) {
         intent = new Intent(this, ContPasosActivity.class);
         startActivity(intent);
+        }
+        else if (id == R.id.nav_shake) {
+            intent = new Intent(this, ShakeActivity.class);
+            startActivity(intent);
         }
 
 
