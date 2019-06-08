@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Switch;
 import android.widget.Spinner;
@@ -23,6 +24,7 @@ public class AlimentacionActivity extends AppCompatActivity {
     Switch sw_desayuno, sw_almuerzo, sw_cena, sw_colacion;
     Spinner sp_plato, sp_guarnicion, sp_bebida, sp_porcion1, sp_porcion2, sp_vasos;
     Button btn_cancelar, btn_guardar;
+    TextView lbl_calorias;
 
     public void reload() {
         Intent intent = getIntent();
@@ -53,6 +55,8 @@ public class AlimentacionActivity extends AppCompatActivity {
         sp_porcion2=findViewById(R.id.sp_porcion2);
         sp_vasos=findViewById(R.id.sp_vasos);
 
+        lbl_calorias=findViewById(R.id.lbl_CaloriasNum_A);
+
         final ArrayAdapter<String> adap_desayuno;
         final ArrayAdapter<String> adap_plato;
         final ArrayAdapter<String> adap_colacion;
@@ -61,6 +65,7 @@ public class AlimentacionActivity extends AppCompatActivity {
         final ArrayAdapter<String> adap_bebida_plato;
         final ArrayAdapter<String> adap_porcion;
         final ArrayAdapter<String> adap_cantidad;
+        final ArrayAdapter<String> adap_vacio;
 
         ArrayList<String> l_desayuno = new ArrayList<>();
         l_desayuno.add("Huevos y panceta");
@@ -122,6 +127,9 @@ public class AlimentacionActivity extends AppCompatActivity {
         l_cantidad.add("3");
         adap_cantidad = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,l_cantidad);
 
+        ArrayList<String> l_vacio = new ArrayList<>();
+        adap_vacio = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,l_vacio);
+
         sw_desayuno.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean on) {
@@ -135,10 +143,17 @@ public class AlimentacionActivity extends AppCompatActivity {
                     sp_porcion1.setAdapter(adap_porcion);
                     sp_bebida.setAdapter(adap_bebida_des);
                     sp_vasos.setAdapter(adap_cantidad);
+                    sp_guarnicion.setAdapter(adap_vacio);
+                    sp_porcion2.setAdapter(adap_vacio);
+
                 }
                 else {
                     sw_desayuno.setThumbTintList(ColorStateList.valueOf(GRIS_REF));
                     sw_desayuno.setTrackTintList(ColorStateList.valueOf(GRIS_REF));
+                    sp_plato.setAdapter(adap_vacio);
+                    sp_porcion1.setAdapter(adap_vacio);
+                    sp_bebida.setAdapter(adap_vacio);
+                    sp_vasos.setAdapter(adap_vacio);
                 }
             }
         });
@@ -163,6 +178,12 @@ public class AlimentacionActivity extends AppCompatActivity {
                 else {
                     sw_almuerzo.setThumbTintList(ColorStateList.valueOf(GRIS_REF));
                     sw_almuerzo.setTrackTintList(ColorStateList.valueOf(GRIS_REF));
+                    sp_plato.setAdapter(adap_vacio);
+                    sp_porcion1.setAdapter(adap_vacio);
+                    sp_guarnicion.setAdapter(adap_vacio);
+                    sp_porcion2.setAdapter(adap_vacio);
+                    sp_bebida.setAdapter(adap_vacio);
+                    sp_vasos.setAdapter(adap_vacio);
                 }
             }
         });
@@ -186,6 +207,12 @@ public class AlimentacionActivity extends AppCompatActivity {
                 else {
                     sw_cena.setThumbTintList(ColorStateList.valueOf(GRIS_REF));
                     sw_cena.setTrackTintList(ColorStateList.valueOf(GRIS_REF));
+                    sp_plato.setAdapter(adap_vacio);
+                    sp_porcion1.setAdapter(adap_vacio);
+                    sp_guarnicion.setAdapter(adap_vacio);
+                    sp_porcion2.setAdapter(adap_vacio);
+                    sp_bebida.setAdapter(adap_vacio);
+                    sp_vasos.setAdapter(adap_vacio);
                 }
             }
         });
@@ -201,10 +228,16 @@ public class AlimentacionActivity extends AppCompatActivity {
                     sw_cena.setChecked(false);
                     sp_plato.setAdapter(adap_colacion);
                     sp_porcion1.setAdapter(adap_cantidad);
+                    sp_guarnicion.setAdapter(adap_vacio);
+                    sp_porcion2.setAdapter(adap_vacio);
+                    sp_bebida.setAdapter(adap_vacio);
+                    sp_vasos.setAdapter(adap_vacio);
                 }
                 else {
                     sw_colacion.setThumbTintList(ColorStateList.valueOf(GRIS_REF));
                     sw_colacion.setTrackTintList(ColorStateList.valueOf(GRIS_REF));
+                    sp_plato.setAdapter(adap_vacio);
+                    sp_porcion1.setAdapter(adap_vacio);
                 }
             }
 
@@ -223,7 +256,9 @@ public class AlimentacionActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                Alimento a1,a2,a3;
-               String id, nombre, porcion, calorias="";
+               String id, nombre;
+               int porcion;
+               double calorias=0.0;
 
                ///el id de cada alimento estara conformador por 3 caracteres: el primero dice el numero de posicion en el spinner
                ///                                                            el segundo es la primera letra del alimento
@@ -234,59 +269,63 @@ public class AlimentacionActivity extends AppCompatActivity {
 
                id = Integer.toString(sp_plato.getSelectedItemPosition()) + sp_plato.getSelectedItem().toString().substring(0,1) + "P";
                nombre = sp_plato.getSelectedItem().toString();
-               porcion = sp_porcion1.getSelectedItem().toString();
+               porcion = sp_porcion1.getSelectedItemPosition()+1;
 
                switch(id) {
 
                    case "0HP":
-                       calorias=Double.toString(300.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=300.0*porcion;
                        break;
 
                    case "1MP":
-                       calorias=Double.toString(100.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=100.0*porcion;
                        break;
 
                    case "2OP":
-                       calorias=Double.toString(250.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=250*porcion;
                        break;
 
                    case "3TP":
-                       calorias=Double.toString(220.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "0CP":
-                       calorias=Double.toString(100.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "1EP":
-                       calorias=Double.toString(150.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "2PP":
-                       calorias=Double.toString(170.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "3PP":
-                       calorias=Double.toString(45.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "0BP":
-                       calorias=Double.toString(80.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "1BP":
-                       calorias=Double.toString(100.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "2SP":
-                       calorias=Double.toString(120.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "3YP":
-                       calorias=Double.toString(70.0*(sp_porcion1.getSelectedItemPosition()-1));
+                       calorias=220*porcion;
                        break;
 
                    case "4NP":
+                       id=null;
+                       break;
+
+                   case "":
                        id=null;
                        break;
                }
@@ -297,27 +336,31 @@ public class AlimentacionActivity extends AppCompatActivity {
 
                id=Integer.toString(sp_guarnicion.getSelectedItemPosition()) + sp_guarnicion.getSelectedItem().toString().substring(0,1) + "G";
                nombre = sp_guarnicion.getSelectedItem().toString();
-               porcion = sp_porcion2.getSelectedItem().toString();
+               porcion = sp_porcion2.getSelectedItemPosition()+1;
 
                 switch(id) {
 
                     case "0AG":
-                        calorias=Double.toString(150.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "1EG":
-                        calorias=Double.toString(140.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "2PG":
-                        calorias=Double.toString(200.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "3PG":
-                        calorias=Double.toString(221.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "4NG":
+                        id=null;
+                        break;
+
+                    case "":
                         id=null;
                         break;
 
@@ -327,49 +370,54 @@ public class AlimentacionActivity extends AppCompatActivity {
 
                 id=Integer.toString(sp_bebida.getSelectedItemPosition()) + sp_bebida.getSelectedItem().toString().substring(0,1) + "B";
                 nombre = sp_bebida.getSelectedItem().toString();
-                porcion = sp_vasos.getSelectedItem().toString();
+                porcion = sp_vasos.getSelectedItemPosition()+1;
 
                 switch(id) {
 
                     case "0CB":
-                        calorias=Double.toString(150.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "1CB":
-                        calorias=Double.toString(140.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "2JB":
-                        calorias=Double.toString(200.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "3TB":
-                        calorias=Double.toString(221.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "0AB":
-                        calorias=Double.toString(150.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "1AB":
-                        calorias=Double.toString(140.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "2CB":
-                        calorias=Double.toString(200.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "3GB":
-                        calorias=Double.toString(221.0*(sp_porcion1.getSelectedItemPosition()-1));
+                        calorias=220*porcion;
                         break;
 
                     case "4NB":
                         id=null;
                         break;
 
+                    case "":
+                        id=null;
+                        break;
                 }
 
                 a3 = new Alimento(id,nombre,porcion,calorias);
+
+                lbl_calorias.setText(Double.toString(a1.getCalorias()+a2.getCalorias()+a3.getCalorias()));
 
             }
         });

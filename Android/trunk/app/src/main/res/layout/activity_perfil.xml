@@ -153,7 +153,7 @@
             android:layout_width="300dp"
             android:layout_height="25dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="400dp"
+            android:layout_marginTop="445dp"
             android:background="#6DBE11"
             android:gravity="center"
 
@@ -161,12 +161,12 @@
             android:textColor="#FFFFFF" />
 
         <TextView
-            android:id="@+id/lbl_CaloriasNum"
+            android:id="@+id/lbl_CaloriasNum_P"
             android:layout_width="300dp"
             android:layout_height="25dp"
             android:text="0.0/0.0"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="430dp"
+            android:layout_marginTop="475dp"
             android:gravity="center" />
 
         <TextView
@@ -174,7 +174,7 @@
             android:layout_width="150dp"
             android:layout_height="25dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="480dp"
+            android:layout_marginTop="520dp"
             android:background="#6DBE11"
             android:gravity="center"
             android:text="Logros obtenidos: "
@@ -185,36 +185,29 @@
             android:layout_width="150dp"
             android:layout_height="25dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="530dp"
+            android:layout_marginTop="560dp"
             android:background="#6DBE11"
             android:gravity="center"
             android:text="Monedas: "
             android:textColor="#FFFFFF" />
 
-        <TextView
-            android:id="@+id/lbl_LogrosCant"
-            android:layout_width="56dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="170dp"
-            android:layout_marginTop="480dp"
-            android:gravity="center"
-            android:text="0" />
 
         <TextView
             android:id="@+id/lbl_MonedasCant"
             android:layout_width="56dp"
             android:layout_height="25dp"
             android:layout_marginStart="170dp"
-            android:layout_marginTop="530dp"
+            android:layout_marginTop="560dp"
             android:gravity="center"
             android:text="0" />
 
         <Button
-            android:id="@+id/boton"
+            android:id="@+id/btn_act"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="130dp"
-            android:text="Button" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="385dp"
+            android:text="Guardar / Actualizar Perfil" />
 
 
     </RelativeLayout>
