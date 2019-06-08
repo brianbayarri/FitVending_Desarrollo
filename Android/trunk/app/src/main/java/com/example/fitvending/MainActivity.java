@@ -107,8 +107,13 @@ public class MainActivity extends AppCompatActivity
             intent = new Intent(this, LogrosActivity.class);
             startActivity(intent);
         }
+           else if (id == R.id.nav_contpasos) {
+        intent = new Intent(this, ContPasosActivity.class);
+        startActivity(intent);
+        }
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
+    DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
