@@ -10,6 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pasos desde reinicio: "
+        android:layout_marginStart="10px"
+        android:layout_marginTop="15px"
+        android:background="#6DBE11"
+        android:textColor="#FFFFFF"
 
         />
 
@@ -17,10 +21,24 @@
         android:id="@+id/count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pasos desde reinicio: "
-        android:paddingStart="25px"
-        android:paddingVertical="100px"
+        android:text="Pasos: "
+        android:layout_marginStart="10px"
+        android:layout_marginTop="100px"
+        android:background="#6DBE11"
+        android:textColor="#FFFFFF"
 
         />
+
+
+    <TextView
+        android:id="@+id/lbl_pieFV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FV"
+        android:textColor="#6DBE11"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="680dp" />
 
 </RelativeLayout>
