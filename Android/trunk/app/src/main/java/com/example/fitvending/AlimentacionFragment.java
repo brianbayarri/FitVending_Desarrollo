@@ -282,13 +282,6 @@ public class AlimentacionFragment extends Fragment {
 
         });
 
-        btn_cancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //reload();
-                //Limpiar la pantalla a mano
-            }
-        });
 
         btn_guardar.setOnClickListener(new View.OnClickListener() {
             @Override

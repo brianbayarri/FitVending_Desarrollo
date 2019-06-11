@@ -86,6 +86,7 @@ public class RutinaFragment extends Fragment {
         lbl_minutos= vista.findViewById(R.id.RutinaInputMinutos);
         txt_calorias= vista.findViewById(R.id.lbl_CaloriasNum_R);
         Spinner Actividades =  vista.findViewById(R.id.ActividadSpinner);
+
         ArrayList<String> l_rutina = new ArrayList<>();
         l_rutina.add("Aerobic (Moderado)");
         l_rutina.add("Aerobic (Intenso)");
@@ -103,12 +104,6 @@ public class RutinaFragment extends Fragment {
         ArrayAdapter<String> adap_rutina = new ArrayAdapter<String>(contextoActual, R.layout.support_simple_spinner_dropdown_item,l_rutina);
         Actividades.setAdapter(adap_rutina);
 
-        cancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //reload();
-            }
-        });
 
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
