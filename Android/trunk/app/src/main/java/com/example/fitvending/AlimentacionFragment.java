@@ -282,13 +282,31 @@ public class AlimentacionFragment extends Fragment {
 
         });
 
+        btn_cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                sw_almuerzo.setChecked(false);
+                sw_cena.setChecked(false);
+                sw_colacion.setChecked(false);
+                sw_desayuno.setChecked(false);
+                sp_plato.setAdapter(adap_vacio);
+                sp_porcion1.setAdapter(adap_vacio);
+                sp_guarnicion.setAdapter(adap_vacio);
+                sp_porcion2.setAdapter(adap_vacio);
+                sp_vasos.setAdapter(adap_vacio);
+                sp_bebida.setAdapter(adap_vacio);
+                lbl_calorias.setText("0.0/0.0");
+            }
+        });
+
 
         btn_guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Alimento a1,a2,a3;
-                String id, nombre;
+                String id, nombre, porcion_string;
                 int porcion;
                 double calorias=0.0;
 
@@ -299,155 +317,173 @@ public class AlimentacionFragment extends Fragment {
 
                 ///reuno los datos del alimento "plato principal"
 
+                if(sw_desayuno.isChecked() || sw_almuerzo.isChecked() || sw_cena.isChecked() || sw_colacion.isChecked()) {
+
                 id = Integer.toString(sp_plato.getSelectedItemPosition()) + sp_plato.getSelectedItem().toString().substring(0,1) + "P";
                 nombre = sp_plato.getSelectedItem().toString();
-                porcion = sp_porcion1.getSelectedItemPosition()+1;
+                porcion_string = String.valueOf(sp_porcion1.getSelectedItemPosition()+1);
 
-                switch(id) {
 
-                    case "0HP":
-                        calorias=300.0*porcion;
-                        break;
+                    porcion = Integer.parseInt(porcion_string);
 
-                    case "1MP":
-                        calorias=100.0*porcion;
-                        break;
+                    switch (id) {
 
-                    case "2OP":
-                        calorias=250*porcion;
-                        break;
+                        case "0HP":
+                            calorias = 300.0 * porcion;
+                            break;
 
-                    case "3TP":
-                        calorias=220*porcion;
-                        break;
+                        case "1MP":
+                            calorias = 100.0 * porcion;
+                            break;
 
-                    case "0CP":
-                        calorias=220*porcion;
-                        break;
+                        case "2OP":
+                            calorias = 250 * porcion;
+                            break;
 
-                    case "1EP":
-                        calorias=220*porcion;
-                        break;
+                        case "3TP":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "2PP":
-                        calorias=220*porcion;
-                        break;
+                        case "0CP":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "3PP":
-                        calorias=220*porcion;
-                        break;
+                        case "1EP":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "0BP":
-                        calorias=220*porcion;
-                        break;
+                        case "2PP":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "1BP":
-                        calorias=220*porcion;
-                        break;
+                        case "3PP":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "2SP":
-                        calorias=220*porcion;
-                        break;
+                        case "0BP":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "3YP":
-                        calorias=220*porcion;
-                        break;
+                        case "1BP":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "4NP":
-                        id=null;
-                        break;
+                        case "2SP":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "":
-                        id=null;
-                        break;
+                        case "3YP":
+                            calorias = 220 * porcion;
+                            break;
+
+                        case "4NP":
+                            id = null;
+                            break;
+                    }
+
+                    a1 = new Alimento(id,nombre,porcion,calorias);
+                }
+                else {
+                    a1 = new Alimento(null,null,0,0.0);
                 }
 
-                a1 = new Alimento(id,nombre,porcion,calorias);
+
 
                 ///reuno los datos del alimento "guarnicion";
 
+                if(sw_almuerzo.isChecked() || sw_cena.isChecked()) {
+
                 id=Integer.toString(sp_guarnicion.getSelectedItemPosition()) + sp_guarnicion.getSelectedItem().toString().substring(0,1) + "G";
                 nombre = sp_guarnicion.getSelectedItem().toString();
-                porcion = sp_porcion2.getSelectedItemPosition()+1;
+                porcion_string = String.valueOf(sp_porcion2.getSelectedItemPosition()+1);
 
-                switch(id) {
+                    porcion = Integer.parseInt(porcion_string);
 
-                    case "0AG":
-                        calorias=220*porcion;
-                        break;
+                    switch (id) {
 
-                    case "1EG":
-                        calorias=220*porcion;
-                        break;
+                        case "0AG":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "2PG":
-                        calorias=220*porcion;
-                        break;
+                        case "1EG":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "3PG":
-                        calorias=220*porcion;
-                        break;
+                        case "2PG":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "4NG":
-                        id=null;
-                        break;
+                        case "3PG":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "":
-                        id=null;
-                        break;
+                        case "4NG":
+                            id = null;
+                            break;
+                    }
+
+                    a2 = new Alimento(id, nombre, porcion, calorias);
 
                 }
+                else {
+                    a2 = new Alimento(null,null,0,0.0);
+                }
 
-                a2 = new Alimento(id,nombre,porcion,calorias);
+                ///reuno todos los datos de "bebida"
+
+                if(sw_desayuno.isChecked() || sw_almuerzo.isChecked() || sw_cena.isChecked()) {
 
                 id=Integer.toString(sp_bebida.getSelectedItemPosition()) + sp_bebida.getSelectedItem().toString().substring(0,1) + "B";
                 nombre = sp_bebida.getSelectedItem().toString();
-                porcion = sp_vasos.getSelectedItemPosition()+1;
+                porcion_string = String.valueOf(sp_vasos.getSelectedItemPosition()+1);
 
-                switch(id) {
+                    porcion = Integer.parseInt(porcion_string);
 
-                    case "0CB":
-                        calorias=220*porcion;
-                        break;
+                    switch (id) {
 
-                    case "1CB":
-                        calorias=220*porcion;
-                        break;
+                        case "0CB":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "2JB":
-                        calorias=220*porcion;
-                        break;
+                        case "1CB":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "3TB":
-                        calorias=220*porcion;
-                        break;
+                        case "2JB":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "0AB":
-                        calorias=220*porcion;
-                        break;
+                        case "3TB":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "1AB":
-                        calorias=220*porcion;
-                        break;
+                        case "0AB":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "2CB":
-                        calorias=220*porcion;
-                        break;
+                        case "1AB":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "3GB":
-                        calorias=220*porcion;
-                        break;
+                        case "2CB":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "4NB":
-                        id=null;
-                        break;
+                        case "3GB":
+                            calorias = 220 * porcion;
+                            break;
 
-                    case "":
-                        id=null;
-                        break;
+                        case "4NB":
+                            id = null;
+                            break;
+                    }
+
+                    a3 = new Alimento(id, nombre, porcion, calorias);
+
                 }
-
-                a3 = new Alimento(id,nombre,porcion,calorias);
+                else {
+                    a3 = new Alimento(null,null,0,0.0);
+                }
 
                 lbl_calorias.setText(Double.toString(a1.getCalorias()+a2.getCalorias()+a3.getCalorias()));
 

@@ -119,7 +119,6 @@ public class PerfilFragment extends Fragment {
         double altura_f=0.0, peso_f=0.0;
         int edad_f=0;
 
-
         String peso=lbl_peso.getText().toString();
         String altura=lbl_altura.getText().toString();
         String edad=lbl_edad.getText().toString();

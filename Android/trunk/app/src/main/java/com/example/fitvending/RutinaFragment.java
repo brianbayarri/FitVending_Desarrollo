@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -34,7 +35,7 @@ public class RutinaFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    Button ButtonSalir, cancelar, guardar;
+    Button cancelar, guardar;
     Spinner sp_actividad;
     EditText lbl_minutos;
     TextView txt_calorias;
@@ -101,80 +102,95 @@ public class RutinaFragment extends Fragment {
         l_rutina.add("Patinar");
         l_rutina.add("Pesas");
         l_rutina.add("Tenis");
-        ArrayAdapter<String> adap_rutina = new ArrayAdapter<String>(contextoActual, R.layout.support_simple_spinner_dropdown_item,l_rutina);
+        final ArrayAdapter<String> adap_rutina = new ArrayAdapter<String>(contextoActual, R.layout.support_simple_spinner_dropdown_item,l_rutina);
         Actividades.setAdapter(adap_rutina);
 
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                sp_actividad.setAdapter(adap_rutina);
+                lbl_minutos.setText("");
+                txt_calorias.setText("0.0/0.0");
+
+            }
+        });
 
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Rutina r1;
-                String id,nombre;
+                String id,nombre, minu_string;
                 int minutos;
                 double calorias=0.0;
                 id = sp_actividad.getSelectedItemPosition() + sp_actividad.getSelectedItem().toString().substring(0,1);
                 nombre = sp_actividad.getSelectedItem().toString();
-                minutos = Integer.parseInt(lbl_minutos.getText().toString());
+                minu_string = lbl_minutos.getText().toString();
 
-                switch(id) {
+                if(!id.equals("") && !nombre.equals("") && !minu_string.equals("")) {
 
-                    case "0A":
-                        calorias = 7.3 * minutos;
-                        break;
+                    minutos = Integer.parseInt(minu_string);
 
-                    case "1A":
-                        calorias = 11.0 * minutos;
-                        break;
+                    switch (id) {
 
-                    case "2B":
-                        calorias = 3.16 * minutos;
-                        break;
+                        case "0A":
+                            calorias = 7.3 * minutos;
+                            break;
 
-                    case "3B":
-                        calorias = 8.1 * minutos;
-                        break;
+                        case "1A":
+                            calorias = 11.0 * minutos;
+                            break;
 
-                    case "4C":
-                        calorias = 3.9 * minutos;
-                        break;
+                        case "2B":
+                            calorias = 3.16 * minutos;
+                            break;
 
-                    case "5C":
-                        calorias = 7.3 * minutos;
-                        break;
+                        case "3B":
+                            calorias = 8.1 * minutos;
+                            break;
 
-                    case "6C":
-                        calorias = 11.7 * minutos;
-                        break;
+                        case "4C":
+                            calorias = 3.9 * minutos;
+                            break;
 
-                    case "7C":
-                        calorias = 15.8 * minutos;
-                        break;
+                        case "5C":
+                            calorias = 7.3 * minutos;
+                            break;
 
-                    case "8H":
-                        calorias = 4.6 * minutos;
-                        break;
+                        case "6C":
+                            calorias = 11.7 * minutos;
+                            break;
 
-                    case "9N":
-                        calorias = 6.66 * minutos;
-                        break;
+                        case "7C":
+                            calorias = 15.8 * minutos;
+                            break;
 
-                    case "10P":
-                        calorias = 5.33 * minutos;
-                        break;
+                        case "8H":
+                            calorias = 4.6 * minutos;
+                            break;
 
-                    case "11P":
-                        calorias = 4.16 * minutos;
-                        break;
+                        case "9N":
+                            calorias = 6.66 * minutos;
+                            break;
 
-                    case "12T":
-                        calorias = 5.83 * minutos;
-                        break;
+                        case "10P":
+                            calorias = 5.33 * minutos;
+                            break;
+
+                        case "11P":
+                            calorias = 4.16 * minutos;
+                            break;
+
+                        case "12T":
+                            calorias = 5.83 * minutos;
+                            break;
+                    }
+
+                    r1 = new Rutina(id, nombre, minutos, calorias);
+
+                    txt_calorias.setText(Double.toString(calorias));
                 }
-
-                r1 = new Rutina(id,nombre,minutos,calorias);
-
-                txt_calorias.setText(Double.toString(calorias));
             }
         });
         return vista;
