@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        Intent pasosService = new Intent(this,SensorsService.class);
+        startService(pasosService);
         Fragment frag = new MainFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.content_main, frag).commit();
         navigationView.setNavigationItemSelectedListener(this);
@@ -118,13 +120,6 @@ public class MainActivity extends AppCompatActivity
             myFragment = new LogrosFragment();
             seleccion = true;
             toolbar.setTitle("Desafios");
-        } else if (id == R.id.nav_contpasos) {
-        intent = new Intent(this, ContPasosActivity.class);
-        startActivity(intent);
-        }
-        else if (id == R.id.nav_shake) {
-            intent = new Intent(this, ShakeActivity.class);
-            startActivity(intent);
         }
 
         if(seleccion)

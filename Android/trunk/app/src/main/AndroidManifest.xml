@@ -9,6 +9,9 @@
         android:name="android.hardware.sensor.stepdetector"
         android:required="true" />
 
+    <uses-permission
+        android:name="android.permission.BLUETOOTH" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,15 +19,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PantallaDeCarga"
+        <activity
+            android:name=".PantallaDeCarga"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShakeActivity" />
-        <activity android:name=".ContPasosActivity" />
         <activity android:name=".VendingActivity" />
         <activity
             android:name=".MainActivity"
@@ -34,6 +37,7 @@
                 <action android:name="android.intent.action.HOME" />
             </intent-filter>
         </activity>
+        <service android:enabled="true" android:name="com.example.fitvending.SensorsService" />
     </application>
 
 </manifest>
