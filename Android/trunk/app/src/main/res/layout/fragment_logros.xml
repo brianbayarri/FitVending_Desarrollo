@@ -58,12 +58,11 @@
             android:id="@+id/check_Logro1"
             android:layout_width="250dp"
             android:layout_height="30dp"
-            android:text="Desafio 1"
+            android:text="Completar la rutina de entrenamiento de hoy"
             android:layout_marginStart="30dp"
             android:layout_marginTop="220dp"
             android:checkMark="?android:attr/listChoiceIndicatorMultiple"
             android:gravity="center"
-
             />
 
 
@@ -82,7 +81,7 @@
             android:id="@+id/check_Logro2"
             android:layout_width="250dp"
             android:layout_height="30dp"
-            android:text="Desafio 2"
+            android:text="No comer ningun producto envasado"
             android:layout_marginStart="30dp"
             android:layout_marginTop="290dp"
             android:checkMark="?android:attr/listChoiceIndicatorMultiple"
@@ -98,7 +97,7 @@
             android:layout_marginTop="290dp"
             android:background="#6DBE11"
             android:gravity="center"
-            android:text="20"
+            android:text="40"
             android:textColor="#FFFFFF" />
 
 
@@ -106,7 +105,7 @@
             android:id="@+id/check_Logro3"
             android:layout_width="250dp"
             android:layout_height="30dp"
-            android:text="Desafio 3"
+            android:text="Hacer 500 abdominales"
             android:layout_marginStart="30dp"
             android:layout_marginTop="360dp"
             android:checkMark="?android:attr/listChoiceIndicatorMultiple"
@@ -121,14 +120,14 @@
             android:layout_marginTop="360dp"
             android:background="#6DBE11"
             android:gravity="center"
-            android:text="30"
+            android:text="70"
             android:textColor="#FFFFFF"/>
 
         <CheckedTextView
             android:id="@+id/check_Logro4"
             android:layout_width="250dp"
             android:layout_height="30dp"
-            android:text="Desafio 4"
+            android:text="Caminar hasta Lujan"
             android:layout_marginStart="30dp"
             android:layout_marginTop="430dp"
             android:checkMark="?android:attr/listChoiceIndicatorMultiple"
@@ -143,7 +142,7 @@
             android:layout_marginTop="430dp"
             android:background="#6DBE11"
             android:gravity="center"
-            android:text="40"
+            android:text="500"
             android:textColor="#FFFFFF"/>
 
 

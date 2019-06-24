@@ -1,12 +1,16 @@
 package com.example.fitvending;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckedTextView;
+import android.widget.Toast;
 
 
 /**
@@ -29,6 +33,8 @@ public class LogrosFragment extends Fragment {
     private Context contextoActual;
     private View vista;
     private OnFragmentInteractionListener mListener;
+
+    public static final int VERDE_REF = Color.rgb(124, 213, 22);
 
     public LogrosFragment() {
         // Required empty public constructor
@@ -67,6 +73,49 @@ public class LogrosFragment extends Fragment {
         // Inflate the layout for this fragment
         vista = inflater.inflate(R.layout.fragment_logros, container, false);
         contextoActual = inflater.getContext();
+
+        final CheckedTextView logro1, logro2, logro3, logro4;
+        logro1 = vista.findViewById(R.id.check_Logro1);
+        logro2 = vista.findViewById(R.id.check_Logro2);
+        logro3 = vista.findViewById(R.id.check_Logro3);
+        logro4 = vista.findViewById(R.id.check_Logro4);
+
+        logro1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ///actualizar monedas del usuario
+                logro1.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
+                logro1.setChecked(true);
+            }
+        });
+
+        logro2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ///actualizar monedas del usuario
+                logro2.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
+                logro2.setChecked(true);
+            }
+        });
+
+        logro3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ///actualizar monedas del usuario
+                logro3.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
+                logro3.setChecked(true);
+            }
+        });
+
+        logro4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ///actualizar monedas del usuario
+                logro4.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
+                logro4.setChecked(true);
+            }
+        });
+
         return vista;
     }
 
