@@ -10,9 +10,12 @@
         android:required="true" />
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+=======
+>>>>>>> b108209acc70771b8ce76a96fed165df118c36d8
 
     <application
         android:allowBackup="true"
@@ -21,7 +24,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".Bluetoothactivity"></activity>
+=======
+        <activity android:name=".MainInicio"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login" />
+>>>>>>> b108209acc70771b8ce76a96fed165df118c36d8
         <activity
             android:name=".PantallaDeCarga"
             android:theme="@style/AppTheme.NoActionBar">
