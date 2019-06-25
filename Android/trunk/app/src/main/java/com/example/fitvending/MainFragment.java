@@ -75,17 +75,20 @@ public class MainFragment extends Fragment {
         BluetoothAdapter BTadapter = BluetoothAdapter.getDefaultAdapter();
         if(BTadapter == null) {  ///me fijo si el dispositivo soporta BT
             ///el dispositivo no soporta bluethoot
+            Intent discoverableIntent = new ///con este metodo activa el bluethoot y lo hace visible por tanto tiempo
+                    Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION,0);
+            startActivity(discoverableIntent);
+
         }
+
+
 
         /*if (!BTadapter.isEnabled()) { ///me fijo si el BT esta activado, sino, mando una peticion para que lo concete
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, 1);
         }*/
 
-        Intent discoverableIntent = new ///con este metodo activa el bluethoot y lo hace visible por tanto tiempo
-                Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION,0);
-        startActivity(discoverableIntent);
 
         return vista;
     }

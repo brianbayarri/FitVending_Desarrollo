@@ -9,8 +9,10 @@
         android:name="android.hardware.sensor.stepdetector"
         android:required="true" />
 
-    <uses-permission
-        android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -19,6 +21,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Bluetoothactivity"></activity>
         <activity
             android:name=".PantallaDeCarga"
             android:theme="@style/AppTheme.NoActionBar">
@@ -37,7 +40,10 @@
                 <action android:name="android.intent.action.HOME" />
             </intent-filter>
         </activity>
-        <service android:enabled="true" android:name="com.example.fitvending.SensorsService" />
+
+        <service
+            android:name=".SensorsService"
+            android:enabled="true" />
     </application>
 
 </manifest>

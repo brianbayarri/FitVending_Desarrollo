@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        ////COMIENZA EL SERVICE DE LOS SENSORES
         Intent pasosService = new Intent(this,SensorsService.class);
         startService(pasosService);
         Fragment frag = new MainFragment();
@@ -97,8 +98,14 @@ public class MainActivity extends AppCompatActivity
             seleccion = true;
             toolbar.setTitle("Cronometro");
         } else if (id == R.id.nav_slideshow) {
+            intent = new Intent(this,Bluetoothactivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_tools) {
+
+        } else if (id == R.id.nav_bluetooth) {
+            intent = new Intent(this,Bluetoothactivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_share) {
 
