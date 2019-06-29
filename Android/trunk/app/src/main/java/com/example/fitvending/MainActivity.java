@@ -1,8 +1,14 @@
 package com.example.fitvending;
 
+
+import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +19,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -25,10 +41,18 @@ public class MainActivity extends AppCompatActivity
 {
 
     private Toolbar toolbar;
+    ImageButton chocoarroz,cereal;
 
+    //VARIABLES USADAS PARA DEFINIR EL COLOR DE LOS PRODUCTOS
+    public String colorSinStock = "#D31E1F29";
+    public String colorHayStock = "#FFFFFF";
+
+
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
@@ -45,7 +69,29 @@ public class MainActivity extends AppCompatActivity
         Fragment frag = new MainFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.content_main, frag).commit();
         navigationView.setNavigationItemSelectedListener(this);
+
+        Intent bt = new Intent(this,BtConnectionService.class);
+        startService(bt);
+
+        //chocoarroz =  findViewById(R.id.btn_imgChocoarroz);
+        //cereal = findViewById(R.id.btn_imgCereal);
+
+        /*chocoarroz.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                BtConnectionService.enviarDatosAArduino("1");
+            }
+        });*/
+
+       /* cereal.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                BtConnectionService.enviarDatosAArduino("0");
+            }
+        });*/
+
     }
+
 
     @Override
     public void onBackPressed() {
@@ -142,4 +188,12 @@ public class MainActivity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+    }
+
+
 }

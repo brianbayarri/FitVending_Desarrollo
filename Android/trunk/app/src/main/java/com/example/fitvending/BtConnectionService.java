@@ -1,14 +1,13 @@
 package com.example.fitvending;
 
+import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
+import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,12 +16,10 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 
-public class Bluetoothactivity extends AppCompatActivity {
+public class BtConnectionService extends Service {
 
-    Button IdEncender, IdApagar,IdDesconectar;
     TextView IdBufferIn;
     //-------------------------------------------
     Handler bluetoothIn;
@@ -30,23 +27,24 @@ public class Bluetoothactivity extends AppCompatActivity {
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
     private StringBuilder DataStringIN = new StringBuilder();
-    private ConnectedThread MyConexionBT;
+    public static ConnectedThread MyConexionBT;
     // Identificador unico de servicio - SPP UUID
     private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     // String para la direccion MAC
     private static String address = null;
 
+    private Button chocoarroz,cereal;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bluetoothactivity);
-        //2)
-        //Enlaza los controles con sus respectivas vistas
-        IdEncender = (Button) findViewById(R.id.IdEncender);
-        IdApagar = (Button) findViewById(R.id.IdApagar);
-        IdDesconectar = (Button) findViewById(R.id.IdDesconectar);
-        IdBufferIn = (TextView) findViewById(R.id.IdBufferIn);
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
         bluetoothIn = new Handler() {
             public void handleMessage(android.os.Message msg) {
@@ -68,49 +66,30 @@ public class Bluetoothactivity extends AppCompatActivity {
         btAdapter = BluetoothAdapter.getDefaultAdapter(); // get Bluetooth adapter
         VerificarEstadoBT();
 
-        // Configuracion onClick listeners para los botones
-        // para indicar que se realizara cuando se detecte
-        // el evento de Click
-        IdEncender.setOnClickListener(new View.OnClickListener() {
+
+        /*chocoarroz = (Button) chocoarroz.findViewById(R.id.btn_imgChocoarroz);
+        cereal = (Button) cereal.findViewById(R.id.btn_imgCereal);
+
+        chocoarroz.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                MyConexionBT.write("1");
+                BtConnectionService.MyConexionBT.write("1");
             }
         });
 
-        IdApagar.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                MyConexionBT.write("0");
+        cereal.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                BtConnectionService.MyConexionBT.write("0");
             }
         });
-
-        IdDesconectar.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (btSocket!=null)
-                {
-                    try {btSocket.close();}
-                    catch (IOException e)
-                    { Toast.makeText(getBaseContext(), "Error", Toast.LENGTH_SHORT).show();;}
-                }
-                finish();
-            }
-        });
+        */
     }
 
-    private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException
-    {
-        //crea un conexion de salida segura para el dispositivo
-        //usando el servicio UUID
-        return device.createRfcommSocketToServiceRecord(BTMODULEUUID);
-    }
 
     @Override
-    public void onResume()
-    {
-        super.onResume();
-        //Consigue la direccion MAC desde DeviceListActivity via intent
-        Intent intent = getIntent();
-        //Consigue la direccion MAC desde DeviceListActivity via EXTRA
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
         address = "98:D3:51:FD:A1:E3"; //intent.getStringExtra(DispositivosBT.EXTRA_DEVICE_ADDRESS);//<-<- PARTE A MODIFICAR >->->
         //Setea la direccion MAC
         BluetoothDevice device = btAdapter.getRemoteDevice(address);
@@ -121,7 +100,7 @@ public class Bluetoothactivity extends AppCompatActivity {
         } catch (IOException e) {
             Toast.makeText(getBaseContext(), "La creacción del Socket fallo", Toast.LENGTH_LONG).show();
         }
-        // Establece la conexión con el socket Bluetooth.
+        //Establece la conexión con el socket Bluetooth.
         try
         {
             btSocket.connect();
@@ -132,18 +111,17 @@ public class Bluetoothactivity extends AppCompatActivity {
         }
         MyConexionBT = new ConnectedThread(btSocket);
         MyConexionBT.start();
+
+        return START_NOT_STICKY;
     }
 
-    @Override
-    public void onPause()
+    private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException
     {
-        super.onPause();
-        try
-        { // Cuando se sale de la aplicación esta parte permite
-            // que no se deje abierto el socket
-            btSocket.close();
-        } catch (IOException e2) {}
+        //crea un conexion de salida segura para el dispositivo
+        //usando el servicio UUID
+        return device.createRfcommSocketToServiceRecord(BTMODULEUUID);
     }
+
 
     //Comprueba que el dispositivo Bluetooth Bluetooth está disponible y solicita que se active si está desactivado
     private void VerificarEstadoBT() {
@@ -153,14 +131,20 @@ public class Bluetoothactivity extends AppCompatActivity {
         } else {
             if (btAdapter.isEnabled()) {
             } else {
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, 1);
+
             }
         }
     }
 
+
+    public static void enviarDatosAArduino(String datoAEnviar){
+
+        MyConexionBT.write(datoAEnviar);
+
+    }
+
     //Crea la clase que permite crear el evento de conexion
-    public class ConnectedThread extends Thread
+    private class ConnectedThread extends Thread
     {
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
@@ -205,8 +189,10 @@ public class Bluetoothactivity extends AppCompatActivity {
             {
                 //si no es posible enviar datos se cierra la conexión
                 Toast.makeText(getBaseContext(), "La Conexión fallo", Toast.LENGTH_LONG).show();
-                finish();
+
             }
         }
     }
+
+
 }

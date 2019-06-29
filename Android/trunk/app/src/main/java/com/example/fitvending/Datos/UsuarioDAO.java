@@ -20,9 +20,9 @@ public class UsuarioDAO {
 
     public static final String CREATE_USUARIO_TABLE = "CREATE TABLE "+ TABLE_NAME +
             " (" + NOMBRE +
-            " TEXT, " + PASSWORD +" TEXT, "+ ALTURA +" DOUBLE, " + EDAD + " INTEGER, " +
+            " TEXT PRIMARY KEY, " + PASSWORD +" TEXT, "+ ALTURA +" DOUBLE, " + EDAD + " INTEGER, " +
             PESO + " DOUBLE, " + SEXO + " TEXT, " + MONEDAS +
-            " INTEGER," + CONECTADO + " INTEGER )";
+            " INTEGER )";
 
     public static final String DELETE_USUARIO_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME;
 
@@ -40,7 +40,6 @@ public class UsuarioDAO {
             values.put(PESO, user.getPeso());
             values.put(SEXO, user.getSexo());
             values.put(MONEDAS, user.getMoneda());
-            values.put(CONECTADO, user.getConectado());
 
             id = database.insert(TABLE_NAME, null, values);
             if (id >= 0) {
@@ -52,6 +51,8 @@ public class UsuarioDAO {
             Toast.makeText(dbHandler.getContext(), "No se pudo registrar al usuario", Toast.LENGTH_SHORT).show();
             return false;
         }
+
+
 
     }
     /*

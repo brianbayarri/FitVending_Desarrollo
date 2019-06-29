@@ -49,18 +49,18 @@ public class LoginActivity extends AppCompatActivity {
 
                 user.setNombreUsuario(usernameEditText.getText().toString());
                 user.setPassword(passwordEditText.getText().toString());
-                user.setAltura(0);
-                user.setConectado(1);
-                user.setEdad(1);
-                user.setMoneda(0);
-                user.setPeso(0);
-                user.setSexo("");
-                if(userDao.registrarUsuario(db,user))
-                {
-                    Intent main = new Intent(v.getContext(),MainActivity.class);
-                    startActivity(main);
-                }
 
+                if(user.getNombreUsuario().isEmpty() || user.getPassword().isEmpty())
+                {
+                    Toast.makeText(v.getContext(),"El usuario y/o la contraseña están vacíos",Toast.LENGTH_LONG).show();
+                }
+                else {
+
+                    if (userDao.registrarUsuario(db, user)) {
+                        Intent main = new Intent(v.getContext(), MainActivity.class);
+                        startActivity(main);
+                    }
+                }
                 //loginViewModel.login(usernameEditText.getText().toString(),
                 //        passwordEditText.getText().toString());
             }

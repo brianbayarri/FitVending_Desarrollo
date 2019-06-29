@@ -28,6 +28,7 @@
     <string name="calorias_4">Valor energético: 99 Cal</string>
     <string name="texto_elegir">Elija el producto...</string>
 
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_login">Sign in</string>

@@ -14,8 +14,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-=======
->>>>>>> b108209acc70771b8ce76a96fed165df118c36d8
 
     <application
         android:allowBackup="true"
@@ -26,7 +24,6 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".Bluetoothactivity"></activity>
-=======
         <activity android:name=".MainInicio"
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
@@ -38,7 +35,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
->>>>>>> b108209acc70771b8ce76a96fed165df118c36d8
+
         <activity
             android:name=".PantallaDeCarga"
             android:theme="@style/AppTheme.NoActionBar">
@@ -61,6 +58,12 @@
         <service
             android:name=".SensorsService"
             android:enabled="true" />
+
+        <service
+            android:name=".BtConnectionService"
+            android:enabled="true"
+            ></service>
+
     </application>
 
 </manifest>

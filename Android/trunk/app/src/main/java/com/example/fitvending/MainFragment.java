@@ -1,15 +1,26 @@
 package com.example.fitvending;
 
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.UUID;
 
 
 /**
@@ -33,6 +44,11 @@ public class MainFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private Context contextoActual;
     private View vista;
+    private BluetoothAdapter btAdapter = null;
+
+    Button chocoarroz;
+    Button cereal;
+
 
     public MainFragment() {
         // Required empty public constructor
@@ -63,6 +79,7 @@ public class MainFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -72,26 +89,41 @@ public class MainFragment extends Fragment {
         vista = inflater.inflate(R.layout.fragment_main, container, false);
         contextoActual = inflater.getContext();
 
-        BluetoothAdapter BTadapter = BluetoothAdapter.getDefaultAdapter();
-        if(BTadapter == null) {  ///me fijo si el dispositivo soporta BT
-            ///el dispositivo no soporta bluethoot
-            Intent discoverableIntent = new ///con este metodo activa el bluethoot y lo hace visible por tanto tiempo
-                    Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION,0);
-            startActivity(discoverableIntent);
 
+    /*        btAdapter = BluetoothAdapter.getDefaultAdapter(); // get Bluetooth adapter
+
+        if(btAdapter==null) {
+            Toast.makeText(getContext(), "El dispositivo no soporta bluetooth", Toast.LENGTH_LONG).show();
+        } else {
+            if (btAdapter.isEnabled()) {
+            } else {
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, 1);
+            }
         }
 
+        */
 
+        chocoarroz = vista.findViewById(R.id.btn_imgChocoarroz);
+        cereal = vista.findViewById(R.id.btn_imgCereal);
 
-        /*if (!BTadapter.isEnabled()) { ///me fijo si el BT esta activado, sino, mando una peticion para que lo concete
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, 1);
-        }*/
+        chocoarroz.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                BtConnectionService.enviarDatosAArduino("1");
+            }
+        });
 
+        cereal.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                BtConnectionService.enviarDatosAArduino("0");
+            }
+        });
 
         return vista;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -131,4 +163,7 @@ public class MainFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+
 }
