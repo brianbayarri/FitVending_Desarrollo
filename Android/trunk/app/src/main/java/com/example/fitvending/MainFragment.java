@@ -3,9 +3,11 @@ package com.example.fitvending;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.ColorInt;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +50,11 @@ public class MainFragment extends Fragment {
 
     Button chocoarroz;
     Button cereal;
+    TextView sinStocklblP1,sinStocklblP2,sinStocklblP3,sinStocklblP4;
+    private boolean stockP1,stockP2,stockP3,stocP4;
 
+    public String colorSinStock = "#D31E1F29";
+    public String colorHayStock = "#FFFFFF";
 
     public MainFragment() {
         // Required empty public constructor
@@ -103,6 +109,9 @@ public class MainFragment extends Fragment {
         }
 
         */
+        sinStocklblP1 = vista.findViewById(R.id.lbl_sinStockP1);
+
+
 
         chocoarroz = vista.findViewById(R.id.btn_imgChocoarroz);
         cereal = vista.findViewById(R.id.btn_imgCereal);
@@ -120,6 +129,13 @@ public class MainFragment extends Fragment {
                 BtConnectionService.enviarDatosAArduino("0");
             }
         });
+
+        stockP1 = true;
+        if(stockP1)
+            sinStocklblP1.setBackgroundColor(Color.TRANSPARENT);
+        else
+            sinStocklblP1.setBackgroundColor(Color.parseColor(colorSinStock));
+
 
         return vista;
     }

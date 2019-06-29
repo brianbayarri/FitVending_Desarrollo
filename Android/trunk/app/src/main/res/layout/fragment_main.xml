@@ -140,10 +140,10 @@
                             android:textSize="10sp" />
 
                         <TextView
-                            android:id="@+id/sinStocklbl"
+                            android:id="@+id/lbl_sinStockP1"
                             android:layout_width="match_parent"
                             android:layout_height="200dp"
-                            android:background="#D31E1F29" />
+                             />
 
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>

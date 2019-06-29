@@ -67,23 +67,6 @@ public class BtConnectionService extends Service {
         VerificarEstadoBT();
 
 
-        /*chocoarroz = (Button) chocoarroz.findViewById(R.id.btn_imgChocoarroz);
-        cereal = (Button) cereal.findViewById(R.id.btn_imgCereal);
-
-        chocoarroz.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                BtConnectionService.MyConexionBT.write("1");
-            }
-        });
-
-        cereal.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                BtConnectionService.MyConexionBT.write("0");
-            }
-        });
-        */
     }
 
 

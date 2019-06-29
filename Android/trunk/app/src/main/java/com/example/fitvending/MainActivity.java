@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
 {
 
     private Toolbar toolbar;
-    ImageButton chocoarroz,cereal;
+
 
     //VARIABLES USADAS PARA DEFINIR EL COLOR DE LOS PRODUCTOS
     public String colorSinStock = "#D31E1F29";
@@ -72,23 +72,6 @@ public class MainActivity extends AppCompatActivity
 
         Intent bt = new Intent(this,BtConnectionService.class);
         startService(bt);
-
-        //chocoarroz =  findViewById(R.id.btn_imgChocoarroz);
-        //cereal = findViewById(R.id.btn_imgCereal);
-
-        /*chocoarroz.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                BtConnectionService.enviarDatosAArduino("1");
-            }
-        });*/
-
-       /* cereal.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                BtConnectionService.enviarDatosAArduino("0");
-            }
-        });*/
 
     }
 
