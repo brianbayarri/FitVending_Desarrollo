@@ -46,13 +46,14 @@ public class MainActivity extends AppCompatActivity
     //VARIABLES USADAS PARA DEFINIR EL COLOR DE LOS PRODUCTOS
     public String colorSinStock = "#D31E1F29";
     public String colorHayStock = "#FFFFFF";
-
+    String userName;
 
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Bundle datos = this.getIntent().getExtras();
+         userName = datos.getString("UserName");
 
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);

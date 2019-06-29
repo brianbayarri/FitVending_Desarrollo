@@ -40,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
+        final Button registerButton = findViewById(R.id.register);
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,14 +57,68 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(v.getContext(),"El usuario y/o la contraseña están vacíos",Toast.LENGTH_LONG).show();
                 }
                 else {
+                    int rta = userDao.checkIfRecordExist(db,user.getNombreUsuario(), user.getPassword());
+                    Intent main;
+                    switch (rta)
+                    {
+                        case 0:
+                            Toast.makeText(v.getContext(),"Bienvenido nuevamente a FitVending",Toast.LENGTH_LONG).show();
+                             main = new Intent(v.getContext(), MainActivity.class);
+                            main.putExtra("UserName",user.getNombreUsuario());
+                            startActivity(main);
+                            break;
+                        case 1:
+                            Toast.makeText(v.getContext(),"El usuario y/o la contraseña son incorrectas",Toast.LENGTH_LONG).show();
 
-                    if (userDao.registrarUsuario(db, user)) {
-                        Intent main = new Intent(v.getContext(), MainActivity.class);
-                        startActivity(main);
+                            break;
+                        case 2:
+                            Toast.makeText(v.getContext(),"Hubo un error",Toast.LENGTH_LONG).show();
+
+                            break;
                     }
+
+
+
                 }
-                //loginViewModel.login(usernameEditText.getText().toString(),
-                //        passwordEditText.getText().toString());
+            }
+
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DBHandler db = new DBHandler(v.getContext());
+                Usuario user = new Usuario();
+                UsuarioDAO userDao = new UsuarioDAO();
+
+                user.setNombreUsuario(usernameEditText.getText().toString());
+                user.setPassword(passwordEditText.getText().toString());
+
+                if(user.getNombreUsuario().isEmpty() || user.getPassword().isEmpty())
+                {
+                    Toast.makeText(v.getContext(),"El usuario y/o la contraseña están vacíos",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    if(! userDao.checkIfUserExist(db,user.getNombreUsuario()))
+                    {
+                        if(userDao.registrarUsuario(db,user))
+                        {
+                            Toast.makeText(v.getContext(),"Bienvenido a FitVending",Toast.LENGTH_LONG).show();
+                            Intent main = new Intent(v.getContext(), MainActivity.class);
+                            main.putExtra("UserName",user.getNombreUsuario());
+                            startActivity(main);
+                        }
+                        else
+                        {
+                            Toast.makeText(v.getContext(),"Hubo un error",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(v.getContext(),"El usuario ya existe",Toast.LENGTH_LONG).show();
+                    }
+
+                }
             }
         });
     }

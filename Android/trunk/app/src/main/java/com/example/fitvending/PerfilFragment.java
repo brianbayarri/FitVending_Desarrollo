@@ -13,6 +13,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.fitvending.Datos.DBHandler;
+import com.example.fitvending.Datos.UsuarioDAO;
+import com.example.fitvending.entidades.Usuario;
+
 import java.util.ArrayList;
 
 
@@ -104,12 +108,21 @@ public class PerfilFragment extends Fragment {
         adap_ejercicio = new ArrayAdapter<String>(contextoActual, R.layout.support_simple_spinner_dropdown_item,l_ejercicio);
         sp_ejercicio.setAdapter(adap_ejercicio);
 
+        //Si existe los usuarios se setea los datos del usuario
+        DBHandler db = new DBHandler(container.getContext());
+        UsuarioDAO userDao = new UsuarioDAO();
+        Usuario infoUser = new Usuario();
+
+
+
         btn_act.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 calcularCal();
             }
         });
+
+
         return vista;
     }
 
