@@ -8,12 +8,19 @@ public class Usuario {
     private double peso;
     private int moneda;
     private String sexo;
-
+    private int conectado;
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
+    public int getConectado() {
+        return conectado;
+    }
+
+    public void setConectado(int conectado) {
+        this.conectado = conectado;
+    }
 
     public String getSexo() {
         return sexo;

@@ -1,6 +1,7 @@
 package com.example.fitvending.Datos;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
@@ -16,59 +17,126 @@ public class UsuarioDAO {
     private static final String PESO = "peso";
     private static final String SEXO = "sexo";
     private static final String MONEDAS = "monedas";
-    private static final String CONECTADO= "conectado";
+    private static final String CONECTADO = "conectado";
 
-    public static final String CREATE_USUARIO_TABLE = "CREATE TABLE "+ TABLE_NAME +
+    public static final String CREATE_USUARIO_TABLE = "CREATE TABLE " + TABLE_NAME +
             " (" + NOMBRE +
-            " TEXT PRIMARY KEY, " + PASSWORD +" TEXT, "+ ALTURA +" DOUBLE, " + EDAD + " INTEGER, " +
+            " TEXT PRIMARY KEY, " + PASSWORD + " TEXT, " + ALTURA + " DOUBLE, " + EDAD + " INTEGER, " +
             PESO + " DOUBLE, " + SEXO + " TEXT, " + MONEDAS +
-            " INTEGER )";
+            " INTEGER, " + CONECTADO + " INTEGER )";
 
-    public static final String DELETE_USUARIO_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME;
+    public static final String DELETE_USUARIO_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 
-    public static boolean registrarUsuario(DBHandler dbHandler, Usuario user){
-
-
-            SQLiteDatabase database = dbHandler.getWritableDatabase();
-            ContentValues values = new ContentValues();
-            long id = -1;
-
-            values.put(NOMBRE, user.getNombreUsuario());
-            values.put(PASSWORD, user.getPassword());
-            values.put(ALTURA, user.getAltura());
-            values.put(EDAD, user.getEdad());
-            values.put(PESO, user.getPeso());
-            values.put(SEXO, user.getSexo());
-            values.put(MONEDAS, user.getMoneda());
-
-            id = database.insert(TABLE_NAME, null, values);
-            if (id >= 0) {
-                Toast.makeText(dbHandler.getContext(), "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
-                database.close();
-                return true;
-            }
-            database.close();
-            Toast.makeText(dbHandler.getContext(), "No se pudo registrar al usuario", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-
-
-    }
-    /*
-    public static  boolean actualizarUsuario(DBHandler dbHandler){
+    public boolean registrarUsuario(DBHandler dbHandler, Usuario user) {
         SQLiteDatabase database = dbHandler.getWritableDatabase();
-        String[] paramters = {event.getId().toString()};
         ContentValues values = new ContentValues();
-        int error = database.update(TABLE_NAME,values,ID+"=?",paramters);
-        if(error != 0){
-            Toast.makeText(dbHandler.getContext(),"Usuario actualizado exitosamente",Toast.LENGTH_SHORT).show();
+        long id = -1;
+
+        values.put(NOMBRE, user.getNombreUsuario());
+        values.put(PASSWORD, user.getPassword());
+        values.put(ALTURA, user.getAltura());
+        values.put(EDAD, user.getEdad());
+        values.put(PESO, user.getPeso());
+        values.put(SEXO, user.getSexo());
+        values.put(MONEDAS, user.getMoneda());
+        values.put(CONECTADO, user.getConectado());
+
+        id = database.insert(TABLE_NAME, null, values);
+        if (id >= 0) {
+            Toast.makeText(dbHandler.getContext(), "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
             database.close();
             return true;
         }
         database.close();
-        Toast.makeText(dbHandler.getContext(),"No se pudo actualizar el usuario",Toast.LENGTH_SHORT).show();
+        Toast.makeText(dbHandler.getContext(), "No se pudo registrar al usuario", Toast.LENGTH_SHORT).show();
         return false;
-    }*/
+    }
+
+    public int checkIfRecordExist(DBHandler dbHandler, String userValue, String passValue) {
+        SQLiteDatabase objDatabase = dbHandler.getReadableDatabase();
+        try {
+
+            Cursor cursor = objDatabase.rawQuery("SELECT " + NOMBRE + " FROM " + TABLE_NAME + " WHERE " + NOMBRE + "='" + userValue + "'", null);
+            if (cursor.moveToFirst()) {
+                cursor = objDatabase.rawQuery("SELECT " + PASSWORD + " FROM " + TABLE_NAME + " WHERE " + PASSWORD + "='" + passValue + "'", null);
+                if (cursor.moveToFirst()) {
+                    objDatabase.close();
+                    return 0;
+                }
+                objDatabase.close();
+                return 1;
+
+            }
+
+            objDatabase.close();
+            return 1;
+        } catch (Exception errorException) {
+            objDatabase.close();
+            return 2;
+        }
+    }
+
+    //Chequea si el usuario existe antes de crearlo
+    public boolean checkIfUserExist(DBHandler dbHandler, String userValue) {
+        SQLiteDatabase objDatabase = dbHandler.getReadableDatabase();
+        try {
+
+            Cursor cursor = objDatabase.rawQuery("SELECT " + NOMBRE + " FROM " + TABLE_NAME + " WHERE " + NOMBRE + "='" + userValue + "'", null);
+            if (cursor.moveToFirst()) {
+
+                objDatabase.close();
+                return true;
+
+            }
+
+            objDatabase.close();
+            return false;
+        } catch (Exception errorException) {
+            objDatabase.close();
+            return false;
+        }
+
+    }
+
+    public Usuario selectAllRows(DBHandler dbHandler, String userValue) {
+        Usuario user = new Usuario();
+        SQLiteDatabase objDatabase = dbHandler.getReadableDatabase();
+        try {
+
+            Cursor cursor = objDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + NOMBRE + "='" + userValue + "'", null);
+            objDatabase.close();
+            if (cursor.moveToFirst()) {
+                user.setAltura(cursor.getDouble(cursor.getColumnIndex(ALTURA)));
+                user.setEdad(cursor.getInt(cursor.getColumnIndex(EDAD)));
+                user.setPeso(cursor.getDouble(cursor.getColumnIndex(PESO)));
+                user.setSexo(cursor.getString(cursor.getColumnIndex(SEXO)));
+                user.setMoneda(cursor.getInt(cursor.getColumnIndex(MONEDAS)));
+
+            }
+            return  user;
+        } catch (Exception errorException) {
+            objDatabase.close();
+            return null;
+        }
+
+    }
+
+    public static boolean actualizarUsuario(DBHandler dbHandler, Usuario user) {
+        SQLiteDatabase database = dbHandler.getWritableDatabase();
+        //String[] paramters = {event.getId().toString()};
+        ContentValues values = new ContentValues();
+        int error=1;
+        //int error = database.update(TABLE_NAME, values, ID + "=?", paramters);
+        if (error != 0) {
+            Toast.makeText(dbHandler.getContext(), "Usuario actualizado exitosamente", Toast.LENGTH_SHORT).show();
+            database.close();
+            return true;
+        }
+        database.close();
+        Toast.makeText(dbHandler.getContext(), "No se pudo actualizar el usuario", Toast.LENGTH_SHORT).show();
+        return false;
+
+    }
+}
 
 

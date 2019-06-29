@@ -35,7 +35,7 @@
         android:id="@+id/MyCoins"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@drawable/coin"
+        android:src="@drawable/moneda"
         android:layout_marginTop="113dp"
         android:layout_marginStart="330dp"
         />
@@ -124,7 +124,7 @@
                             android:id="@+id/Coin1"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/coin"
+                            android:src="@drawable/moneda"
                             android:layout_marginTop="175dp"
                             android:layout_marginStart="60dp"
                             />
@@ -196,7 +196,7 @@
                             android:id="@+id/Coin2"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/coin"
+                            android:src="@drawable/moneda"
                             android:layout_marginTop="175dp"
                             android:layout_marginStart="60dp"
                             />
@@ -274,7 +274,7 @@
                             android:layout_height="20dp"
                             android:layout_marginStart="60dp"
                             android:layout_marginTop="175dp"
-                            android:src="@drawable/coin" />
+                            android:src="@drawable/moneda" />
 
                         <TextView
                             android:id="@+id/CoinValue3"
@@ -338,7 +338,7 @@
                             android:id="@+id/Coin4"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/coin"
+                            android:src="@drawable/moneda"
                             android:layout_marginTop="175dp"
                             android:layout_marginStart="60dp"
                             />
