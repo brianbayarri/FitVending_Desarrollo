@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -65,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(v.getContext(),"Bienvenido nuevamente a FitVending",Toast.LENGTH_LONG).show();
                              main = new Intent(v.getContext(), MainActivity.class);
                             main.putExtra("UserName",user.getNombreUsuario());
+
                             startActivity(main);
                             break;
                         case 1:
@@ -121,5 +123,24 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void onResume(){
+
+        super.onResume();
+
+        BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter(); // get Bluetooth adapter
+
+        if(btAdapter==null) {
+            Toast.makeText(getBaseContext(), "El dispositivo no soporta bluetooth", Toast.LENGTH_LONG).show();
+        } else {
+            if (btAdapter.isEnabled()) {
+            } else {
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, 1);
+            }
+        }
+
+
     }
 }

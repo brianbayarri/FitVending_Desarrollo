@@ -21,10 +21,6 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/menu_tools" />
 
-        <item
-            android:id="@+id/nav_bluetooth"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Bluetooth" />
 
         <item
             android:id="@+id/nav_Rutina"

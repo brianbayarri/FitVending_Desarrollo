@@ -48,10 +48,9 @@ public class MainFragment extends Fragment {
     private View vista;
     private BluetoothAdapter btAdapter = null;
 
-    Button chocoarroz;
-    Button cereal;
+    Button Producto1,Producto2,Producto3,Producto4;
     TextView sinStocklblP1,sinStocklblP2,sinStocklblP3,sinStocklblP4;
-    private boolean stockP1,stockP2,stockP3,stocP4;
+    private boolean stockP1,stockP2,stockP3,stockP4;
 
     public String colorSinStock = "#D31E1F29";
     public String colorHayStock = "#FFFFFF";
@@ -96,45 +95,85 @@ public class MainFragment extends Fragment {
         contextoActual = inflater.getContext();
 
 
-    /*        btAdapter = BluetoothAdapter.getDefaultAdapter(); // get Bluetooth adapter
-
-        if(btAdapter==null) {
-            Toast.makeText(getContext(), "El dispositivo no soporta bluetooth", Toast.LENGTH_LONG).show();
-        } else {
-            if (btAdapter.isEnabled()) {
-            } else {
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, 1);
-            }
-        }
-
-        */
         sinStocklblP1 = vista.findViewById(R.id.lbl_sinStockP1);
+        sinStocklblP2 = vista.findViewById(R.id.lbl_sinStockP2);
+        sinStocklblP3 = vista.findViewById(R.id.lbl_sinStockP3);
+        sinStocklblP4 = vista.findViewById(R.id.lbl_sinStockP4);
 
-
-
-        chocoarroz = vista.findViewById(R.id.btn_imgChocoarroz);
-        cereal = vista.findViewById(R.id.btn_imgCereal);
-
-        chocoarroz.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                BtConnectionService.enviarDatosAArduino("1");
-            }
-        });
-
-        cereal.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                BtConnectionService.enviarDatosAArduino("0");
-            }
-        });
+        Producto1 = vista.findViewById(R.id.btn_imgChocoarroz);
+        Producto2 = vista.findViewById(R.id.btn_imgCereal);
+        Producto3 = vista.findViewById(R.id.btn_imgFrutos);
+        Producto4 = vista.findViewById(R.id.btn_imgAlfajor);
 
         stockP1 = true;
         if(stockP1)
             sinStocklblP1.setBackgroundColor(Color.TRANSPARENT);
         else
             sinStocklblP1.setBackgroundColor(Color.parseColor(colorSinStock));
+
+        stockP2 = true;
+        if(stockP2)
+            sinStocklblP2.setBackgroundColor(Color.TRANSPARENT);
+        else
+            sinStocklblP2.setBackgroundColor(Color.parseColor(colorSinStock));
+
+        stockP3 = true;
+        if(stockP3)
+            sinStocklblP3.setBackgroundColor(Color.TRANSPARENT);
+        else
+            sinStocklblP3.setBackgroundColor(Color.parseColor(colorSinStock));
+
+        stockP4 = true;
+        if(stockP4)
+            sinStocklblP4.setBackgroundColor(Color.TRANSPARENT);
+        else
+            sinStocklblP4.setBackgroundColor(Color.parseColor(colorSinStock));
+
+
+        Producto1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                if(stockP1) {
+                    BtConnectionService.enviarDatosAArduino("1");
+                }
+                else
+                    Toast.makeText(getContext(),"No hay stock de este producto",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        Producto2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                if(stockP2) {
+                   // BtConnectionService.enviarDatosAArduino("2");
+                }
+                else
+                    Toast.makeText(getContext(),"No hay stock de este producto",Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        Producto3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                if(stockP3) {
+                    BtConnectionService.enviarDatosAArduino("3");
+                }
+                else
+                    Toast.makeText(getContext(),"No hay stock de este producto",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        Producto4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                if(stockP4) {
+                    BtConnectionService.enviarDatosAArduino("4");
+                }
+                else
+                    Toast.makeText(getContext(),"No hay stock de este producto",Toast.LENGTH_LONG).show();
+            }
+        });
 
 
         return vista;

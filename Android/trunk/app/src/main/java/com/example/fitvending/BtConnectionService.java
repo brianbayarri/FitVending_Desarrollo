@@ -25,15 +25,13 @@ public class BtConnectionService extends Service {
     Handler bluetoothIn;
     final int handlerState = 0;
     private BluetoothAdapter btAdapter = null;
-    private BluetoothSocket btSocket = null;
+    private static BluetoothSocket btSocket = null;
     private StringBuilder DataStringIN = new StringBuilder();
     public static ConnectedThread MyConexionBT;
     // Identificador unico de servicio - SPP UUID
     private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     // String para la direccion MAC
     private static String address = null;
-
-    private Button chocoarroz,cereal;
 
 
     @Override
@@ -117,12 +115,23 @@ public class BtConnectionService extends Service {
 
             }
         }
+
+
     }
 
 
     public static void enviarDatosAArduino(String datoAEnviar){
 
         MyConexionBT.write(datoAEnviar);
+
+    }
+
+    public static void detenerBt(){
+        try {
+            btSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -176,6 +185,8 @@ public class BtConnectionService extends Service {
             }
         }
     }
+
+
 
 
 }

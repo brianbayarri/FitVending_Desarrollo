@@ -14,6 +14,8 @@ import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -226,7 +228,7 @@ public class CronometroFragment extends Fragment {
         }
         else
         {
-            calorias.setText("Calorias quemadas: " +  String.valueOf(calQuemadas));
+            calorias.setText("Calorias quemadas: " +  String.valueOf(new DecimalFormat("#.##").format(calQuemadas)));
         }
 
         rc = new Rutina(id,modo, (int) (minutos+segundos)*60,calQuemadas);
