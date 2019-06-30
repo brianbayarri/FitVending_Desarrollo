@@ -3,6 +3,7 @@ package com.example.fitvending;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,9 +20,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fitvending.Datos.DBHandler;
+import com.example.fitvending.Datos.UsuarioDAO;
+import com.example.fitvending.entidades.Usuario;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 import java.util.UUID;
 
 
@@ -49,7 +55,7 @@ public class MainFragment extends Fragment {
     private BluetoothAdapter btAdapter = null;
 
     Button Producto1,Producto2,Producto3,Producto4;
-    TextView sinStocklblP1,sinStocklblP2,sinStocklblP3,sinStocklblP4;
+    TextView sinStocklblP1,sinStocklblP2,sinStocklblP3,sinStocklblP4,txtMonedas, txtCalorias;
     private boolean stockP1,stockP2,stockP3,stockP4;
 
     public String colorSinStock = "#D31E1F29";
@@ -104,6 +110,22 @@ public class MainFragment extends Fragment {
         Producto2 = vista.findViewById(R.id.btn_imgCereal);
         Producto3 = vista.findViewById(R.id.btn_imgFrutos);
         Producto4 = vista.findViewById(R.id.btn_imgAlfajor);
+
+        txtMonedas = vista.findViewById(R.id.txt_money);
+        txtCalorias =  vista.findViewById(R.id.lbl_CaloriasNum_P);
+
+        Usuario datos= new Usuario();
+        datos = selectData(container.getContext());
+        if(datos != null)
+        {
+            txtMonedas.setText(String.valueOf(datos.getMoneda()));
+            txtCalorias.setText(String.valueOf(new DecimalFormat("#.##").format(datos.getCalorias())));
+        }
+        else
+        {
+            txtMonedas.setText(String.valueOf(0));
+            txtCalorias.setText(String.valueOf(0.0));
+        }
 
         stockP1 = true;
         if(stockP1)
@@ -179,7 +201,27 @@ public class MainFragment extends Fragment {
         return vista;
     }
 
+    public Usuario selectData(Context context)
+    {
+        try {
+            //En este archivo tenemos el usuario guardado sin necesidad de pasar parametros
+            MainActivity activity = (MainActivity) getActivity();
+            SharedPreferences preferences = activity.getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+            String userName_sp = preferences.getString("UserName", "");
+            DBHandler db = new DBHandler(context);
+            UsuarioDAO userDao = new UsuarioDAO();
+            Usuario info = new Usuario();
+            info = userDao.selectAllRows(db, userName_sp);
+            if (info != null) {
+                return info;
+            }
+        }catch(Exception e)
+        {
+            Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+        }
+        return null;
 
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

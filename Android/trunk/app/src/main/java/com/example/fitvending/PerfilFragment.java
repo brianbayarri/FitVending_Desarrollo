@@ -18,6 +18,7 @@ import com.example.fitvending.Datos.DBHandler;
 import com.example.fitvending.Datos.UsuarioDAO;
 import com.example.fitvending.entidades.Usuario;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -130,7 +131,7 @@ public class PerfilFragment extends Fragment {
             lbl_peso.setText(String.valueOf(infoUser.getPeso()));
             sp_sexo.setSelection(obtenerPosicionItem(sp_sexo, infoUser.getSexo()));
             sp_ejercicio.setSelection(infoUser.getEjercicio());
-            cal_num.setText(String.valueOf(infoUser.getCalorias()));
+            cal_num.setText(String.valueOf(new DecimalFormat("#.##").format(infoUser.getCalorias())));
             calcularCal(infoUser.getCalorias());
         }
 
