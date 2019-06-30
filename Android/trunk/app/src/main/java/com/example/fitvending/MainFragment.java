@@ -57,6 +57,7 @@ public class MainFragment extends Fragment {
     Button Producto1,Producto2,Producto3,Producto4;
     TextView sinStocklblP1,sinStocklblP2,sinStocklblP3,sinStocklblP4,txtMonedas, txtCalorias;
     private boolean stockP1,stockP2,stockP3,stockP4;
+    String userName;
 
     public String colorSinStock = "#D31E1F29";
     public String colorHayStock = "#FFFFFF";
@@ -94,12 +95,14 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         vista = inflater.inflate(R.layout.fragment_main, container, false);
         contextoActual = inflater.getContext();
 
+        MainActivity activity = (MainActivity) getActivity();
+        userName = activity.getUserNameByFragment();
 
         sinStocklblP1 = vista.findViewById(R.id.lbl_sinStockP1);
         sinStocklblP2 = vista.findViewById(R.id.lbl_sinStockP2);
@@ -155,11 +158,32 @@ public class MainFragment extends Fragment {
         Producto1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                if(stockP1) {
-                    BtConnectionService.enviarDatosAArduino("1");
+                DBHandler db;
+                db = new DBHandler(container.getContext());
+                UsuarioDAO userDao = new UsuarioDAO();
+                Usuario infoUser = new Usuario();
+
+                infoUser = userDao.selectAllRows(db,userName);
+
+                if(infoUser.getEdad()!=0) {
+
+                    if (stockP1) {
+                        if (infoUser.getCalorias() <= 99) {
+
+                            userDao.actualizarCalorias(db, 99, userName, 0);
+                            BtConnectionService.enviarDatosAArduino("1");
+                            Toast.makeText(getContext(), "Calorias actualizadas", Toast.LENGTH_LONG).show();
+                        } else if (infoUser.getMoneda() >= 30) {
+                            userDao.actualizarMonedas(db, 30, userName, 1);
+                            BtConnectionService.enviarDatosAArduino("1");
+                            Toast.makeText(getContext(), "Monedas actualizadas", Toast.LENGTH_LONG).show();
+                        } else
+                            Toast.makeText(getContext(), "No puedes obtener el producto, quema calorias o consigue monedas!", Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(getContext(), "No hay stock de este producto", Toast.LENGTH_LONG).show();
                 }
                 else
-                    Toast.makeText(getContext(),"No hay stock de este producto",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Complete su perfil antes de seleccionar un producto", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -176,24 +200,64 @@ public class MainFragment extends Fragment {
         });
 
         Producto3.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                if(stockP3) {
-                    BtConnectionService.enviarDatosAArduino("3");
+            public void onClick(View v) {
+                DBHandler db;
+                db = new DBHandler(container.getContext());
+                UsuarioDAO userDao = new UsuarioDAO();
+                Usuario infoUser = new Usuario();
+
+                infoUser = userDao.selectAllRows(db, userName);
+
+                if (infoUser.getEdad() != 0) {
+
+                    if (stockP3) {
+                        if (infoUser.getCalorias() <= 99) {
+
+                            userDao.actualizarCalorias(db, 99, userName, 0);
+                            BtConnectionService.enviarDatosAArduino("3");
+                            Toast.makeText(getContext(), "Calorias actualizadas", Toast.LENGTH_LONG).show();
+                        } else if (infoUser.getMoneda() >= 40) {
+                            userDao.actualizarMonedas(db, 40, userName, 1);
+                            BtConnectionService.enviarDatosAArduino("3");
+                            Toast.makeText(getContext(), "Monedas actualizadas", Toast.LENGTH_LONG).show();
+                        } else
+                            Toast.makeText(getContext(), "No puedes obtener el producto, quema calorias o consigue monedas!", Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(getContext(), "No hay stock de este producto", Toast.LENGTH_LONG).show();
                 }
                 else
-                    Toast.makeText(getContext(),"No hay stock de este producto",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Complete su perfil antes de seleccionar un producto", Toast.LENGTH_LONG).show();
             }
         });
 
         Producto4.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                if(stockP4) {
-                    BtConnectionService.enviarDatosAArduino("4");
+            public void onClick(View v) {
+                DBHandler db;
+                db = new DBHandler(container.getContext());
+                UsuarioDAO userDao = new UsuarioDAO();
+                Usuario infoUser = new Usuario();
+
+                infoUser = userDao.selectAllRows(db, userName);
+
+                if (infoUser.getEdad() != 0) {
+
+                    if (stockP4) {
+                        if (infoUser.getCalorias() <= 99) {
+
+                            userDao.actualizarCalorias(db, 99, userName, 0);
+                            BtConnectionService.enviarDatosAArduino("4");
+                            Toast.makeText(getContext(), "Calorias actualizadas", Toast.LENGTH_LONG).show();
+                        } else if (infoUser.getMoneda() >= 50) {
+                            userDao.actualizarMonedas(db, 50, userName, 1);
+                            BtConnectionService.enviarDatosAArduino("4");
+                            Toast.makeText(getContext(), "Monedas actualizadas", Toast.LENGTH_LONG).show();
+                        } else
+                            Toast.makeText(getContext(), "No puedes obtener el producto, quema calorias o consigue monedas!", Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(getContext(), "No hay stock de este producto", Toast.LENGTH_LONG).show();
                 }
                 else
-                    Toast.makeText(getContext(),"No hay stock de este producto",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Complete su perfil antes de seleccionar un producto", Toast.LENGTH_LONG).show();
             }
         });
 
