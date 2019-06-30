@@ -40,7 +40,7 @@ public class PerfilFragment extends Fragment {
     private String mParam2;
     EditText lbl_altura, lbl_edad, lbl_peso;
     Spinner sp_sexo, sp_ejercicio;
-    TextView cal_num;
+    TextView cal_num, lbl_monedas;
     Button btn_act;
     Context contextoActual;
     View vista;
@@ -96,6 +96,7 @@ public class PerfilFragment extends Fragment {
         cal_num= vista.findViewById(R.id.lbl_CaloriasNum_P);
         btn_act= vista.findViewById(R.id.btn_act);
         lbl_UserNombre= vista.findViewById(R.id.lbl_UserNombre);
+        lbl_monedas= vista.findViewById(R.id.lbl_MonedasCant);
 
         final ArrayAdapter<String> adap_sexo;
         final ArrayAdapter<String> adap_ejercicio;
@@ -132,6 +133,13 @@ public class PerfilFragment extends Fragment {
             sp_ejercicio.setSelection(infoUser.getEjercicio());
             cal_num.setText(String.valueOf(infoUser.getCalorias()));
             calcularCal(infoUser.getCalorias());
+            lbl_monedas.setText(String.valueOf(infoUser.getMoneda()));
+
+            if(infoUser.getEdad()==0) { ///cuando el usuario todavia no completo su perfil, que todos los textview aparezcan vacios
+                lbl_edad.setText("");
+                lbl_peso.setText("");
+                lbl_altura.setText("");
+            }
         }
 
         btn_act.setOnClickListener(new View.OnClickListener() {
