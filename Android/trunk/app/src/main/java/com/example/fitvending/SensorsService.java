@@ -93,14 +93,18 @@ public class SensorsService extends Service implements SensorEventListener {
             float delta = acelVal-acelLast;
             shake = shake * 0.9f + delta;
 
-            if(shake>12)
-                Toast.makeText(this, "Usted me enciende, digo agita", Toast.LENGTH_LONG).show();
+            if(shake>12) {
+               // Toast.makeText(this, "Usted me enciende, digo agita", Toast.LENGTH_LONG).show();
+                BtConnectionService.enviarDatosAArduino("5");
+
+            }
 
         }
         else if (event.sensor.getType() == Sensor.TYPE_PROXIMITY){
             modificaciones++;
             if(modificaciones == 10){
-                Toast.makeText(this, "Ha pulsado el sensor por 10 veces", Toast.LENGTH_LONG).show();
+               // Toast.makeText(this, "Ha pulsado el sensor por 10 veces", Toast.LENGTH_LONG).show();
+                BtConnectionService.enviarDatosAArduino("6");
                 modificaciones=0;
             }
         }
