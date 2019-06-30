@@ -1,6 +1,7 @@
 package com.example.fitvending;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,9 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.fitvending.Datos.DBHandler;
+import com.example.fitvending.Datos.UsuarioDAO;
 
 
 /**
@@ -105,7 +109,14 @@ public class CronometroFragment extends Fragment {
         btn_detener.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                detenerCronometro();
+                double calorias = detenerCronometro();
+                //En este archivo tenemos el usuario guardado sin necesidad de pasar parametros
+                MainActivity activity = (MainActivity) getActivity();
+                SharedPreferences preferences = activity.getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+                String userName_sp = preferences.getString("UserName", "");
+                DBHandler db = new DBHandler(v.getContext());
+                UsuarioDAO userDao = new UsuarioDAO();
+                userDao.actualizarCalorias(db,calorias,userName_sp,1);
             }
         });
 
@@ -166,20 +177,22 @@ public class CronometroFragment extends Fragment {
         return vista;
     }
 
+
     private void reiniciarCronometro() {
         cronometro.setBase(SystemClock.elapsedRealtime());
         detenerse = 0;
         calorias.setText("Calorias quemadas: ");
     }
 
-    private void detenerCronometro() {
+    private double detenerCronometro() {
         if (empezar){
 
             cronometro.stop();
             detenerse = SystemClock.elapsedRealtime() - cronometro.getBase();
             empezar = false;
-            calcularCalorias();
+            return (calcularCalorias());
         }
+        return 0.0;
     }
 
     private void iniciarCronometro() {
@@ -191,7 +204,7 @@ public class CronometroFragment extends Fragment {
         }
     }
 
-    private void calcularCalorias(){
+    private double calcularCalorias(){
 
         Rutina rc;
         String id = modo.substring(0,2) + "_C";
@@ -230,6 +243,7 @@ public class CronometroFragment extends Fragment {
         }
 
         rc = new Rutina(id,modo, (int) (minutos+segundos)*60,calQuemadas);
+       return calQuemadas;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

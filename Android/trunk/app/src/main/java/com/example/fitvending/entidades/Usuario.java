@@ -1,5 +1,7 @@
 package com.example.fitvending.entidades;
 
+import java.util.Date;
+
 public class Usuario {
     private String nombreUsuario;
     private String  password;
@@ -8,19 +10,38 @@ public class Usuario {
     private double peso;
     private int moneda;
     private String sexo;
-    private int conectado;
+    private int ejercicio;
+    private double calorias;
+    private Date date;
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public double getCalorias() {
+        return calorias;
+    }
+
+    public int getEjercicio() {
+        return ejercicio;
+    }
+
+    public void setCalorias(double calorias) {
+        this.calorias = calorias;
+    }
+
+    public void setEjercicio(int ejercicio) {
+        this.ejercicio = ejercicio;
+    }
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
-    public int getConectado() {
-        return conectado;
-    }
-
-    public void setConectado(int conectado) {
-        this.conectado = conectado;
-    }
 
     public String getSexo() {
         return sexo;

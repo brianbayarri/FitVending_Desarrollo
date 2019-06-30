@@ -1,6 +1,7 @@
 package com.example.fitvending;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.example.fitvending.Datos.DBHandler;
+import com.example.fitvending.Datos.UsuarioDAO;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -190,10 +194,24 @@ public class RutinaFragment extends Fragment {
                     r1 = new Rutina(id, nombre, minutos, calorias);
 
                     txt_calorias.setText(Double.toString(calorias));
+
+                    updateCalorias(view.getContext(), calorias);
                 }
             }
         });
         return vista;
+    }
+
+    public void updateCalorias(Context context, double calorias)
+    {
+        //En este archivo tenemos el usuario guardado sin necesidad de pasar parametros
+        MainActivity activity = (MainActivity) getActivity();
+        SharedPreferences preferences = activity.getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        String userName_sp = preferences.getString("UserName", "");
+        DBHandler db = new DBHandler(context);
+        UsuarioDAO userDao = new UsuarioDAO();
+        userDao.actualizarCalorias(db,calorias,userName_sp,1);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

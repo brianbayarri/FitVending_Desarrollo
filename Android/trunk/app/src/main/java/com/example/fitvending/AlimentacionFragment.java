@@ -1,6 +1,7 @@
 package com.example.fitvending;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
@@ -15,6 +16,9 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import com.example.fitvending.Datos.DBHandler;
+import com.example.fitvending.Datos.UsuarioDAO;
 
 import java.util.ArrayList;
 
@@ -304,11 +308,12 @@ public class AlimentacionFragment extends Fragment {
         btn_guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Alimento a1,a2,a3;
                 String id, nombre, porcion_string;
                 int porcion;
                 double calorias=0.0;
+
+
 
                 ///el id de cada alimento estara conformador por 3 caracteres: el primero dice el numero de posicion en el spinner
                 ///                                                            el segundo es la primera letra del alimento
@@ -485,7 +490,17 @@ public class AlimentacionFragment extends Fragment {
                     a3 = new Alimento(null,null,0,0.0);
                 }
 
-                lbl_calorias.setText(Double.toString(a1.getCalorias()+a2.getCalorias()+a3.getCalorias()));
+                String calorias_total = Double.toString(a1.getCalorias()+a2.getCalorias()+a3.getCalorias());
+                lbl_calorias.setText(calorias_total);
+
+                //En este archivo tenemos el usuario guardado sin necesidad de pasar parametros
+                MainActivity activity = (MainActivity) getActivity();
+                SharedPreferences preferences = activity.getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+                String userName_sp = preferences.getString("UserName", "");
+                DBHandler db = new DBHandler(view.getContext());
+                UsuarioDAO userDao = new UsuarioDAO();
+                userDao.actualizarCalorias(db,Double.parseDouble(calorias_total),userName_sp,0);
+
 
             }
         });

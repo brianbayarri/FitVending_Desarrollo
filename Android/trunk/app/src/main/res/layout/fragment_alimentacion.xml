@@ -7,6 +7,7 @@
     tools:context=".AlimentacionFragment">
 
 
+
     <Switch
         android:id="@+id/sw_desayuno"
         android:layout_width="120dp"

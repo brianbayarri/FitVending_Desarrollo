@@ -5,7 +5,9 @@ import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity
     //VARIABLES USADAS PARA DEFINIR EL COLOR DE LOS PRODUCTOS
     public String colorSinStock = "#D31E1F29";
     public String colorHayStock = "#FFFFFF";
-    String userName;
+    public String userName;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -54,6 +56,12 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         Bundle datos = this.getIntent().getExtras();
          userName = datos.getString("UserName");
+
+        SharedPreferences prefs =
+                getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("UserName", userName);
+        editor.commit();
 
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
@@ -196,5 +204,8 @@ public class MainActivity extends AppCompatActivity
         super.onPause();
     }
 
-
+    public String getUserNameByFragment()
+    {
+        return userName;
+    }
 }

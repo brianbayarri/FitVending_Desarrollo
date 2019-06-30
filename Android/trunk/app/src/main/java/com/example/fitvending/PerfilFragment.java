@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fitvending.Datos.DBHandler;
 import com.example.fitvending.Datos.UsuarioDAO;
@@ -43,6 +44,8 @@ public class PerfilFragment extends Fragment {
     Button btn_act;
     Context contextoActual;
     View vista;
+    String userName;
+    TextView lbl_UserNombre;
 
     private OnFragmentInteractionListener mListener;
 
@@ -80,6 +83,8 @@ public class PerfilFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        MainActivity activity = (MainActivity) getActivity();
+         userName = activity.getUserNameByFragment();
         // Inflate the layout for this fragment
         vista = inflater.inflate(R.layout.fragment_perfil, container, false);
         contextoActual = inflater.getContext();
@@ -90,6 +95,8 @@ public class PerfilFragment extends Fragment {
         sp_ejercicio= vista.findViewById(R.id.sp_ejercicio);
         cal_num= vista.findViewById(R.id.lbl_CaloriasNum_P);
         btn_act= vista.findViewById(R.id.btn_act);
+        lbl_UserNombre= vista.findViewById(R.id.lbl_UserNombre);
+
         final ArrayAdapter<String> adap_sexo;
         final ArrayAdapter<String> adap_ejercicio;
 
@@ -110,15 +117,51 @@ public class PerfilFragment extends Fragment {
 
         //Si existe los usuarios se setea los datos del usuario
         DBHandler db = new DBHandler(container.getContext());
-        UsuarioDAO userDao = new UsuarioDAO();
+        final UsuarioDAO userDao = new UsuarioDAO();
         Usuario infoUser = new Usuario();
 
+        infoUser = userDao.selectAllRows(db,userName);
 
+        if(infoUser != null)
+        {
+            lbl_altura.setText(String.valueOf(infoUser.getAltura()));
+            lbl_UserNombre.setText(String.valueOf(userName));
+            lbl_edad.setText(String.valueOf(infoUser.getEdad()));
+            lbl_peso.setText(String.valueOf(infoUser.getPeso()));
+            sp_sexo.setSelection(obtenerPosicionItem(sp_sexo, infoUser.getSexo()));
+            sp_ejercicio.setSelection(infoUser.getEjercicio());
+            cal_num.setText(String.valueOf(infoUser.getCalorias()));
+            calcularCal(infoUser.getCalorias());
+        }
 
         btn_act.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calcularCal();
+                try {
+                    DBHandler db = new DBHandler(view.getContext());
+                    final UsuarioDAO userDao = new UsuarioDAO();
+                    Usuario infoUser = new Usuario();
+
+
+                    infoUser.setEjercicio(sp_ejercicio.getSelectedItemPosition());
+                   // infoUser.setCalorias(Double.parseDouble(cal_num.getText().toString()));
+                    infoUser.setSexo(sp_sexo.getSelectedItem().toString());
+                    infoUser.setPeso(Double.parseDouble(lbl_peso.getText().toString()));
+                    infoUser.setAltura(Double.parseDouble(lbl_altura.getText().toString()));
+                    infoUser.setEdad(Integer.parseInt(lbl_edad.getText().toString()));
+                    infoUser.setNombreUsuario(lbl_UserNombre.getText().toString());
+
+                    String [] parseString = cal_num.getText().toString().split("/");
+                    double cal = Double.parseDouble(parseString[0]);
+                    calcularCal(cal);
+
+                    userDao.actualizarUsuario(db, infoUser);
+
+                }catch(Exception e)
+                {
+                    Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -126,7 +169,7 @@ public class PerfilFragment extends Fragment {
         return vista;
     }
 
-    private void calcularCal() {
+    private void calcularCal(double calorias_db) {
 
         double cal_diarias=0.0, ej=0.0;
         double altura_f=0.0, peso_f=0.0;
@@ -137,6 +180,7 @@ public class PerfilFragment extends Fragment {
         String edad=lbl_edad.getText().toString();
         String sex_sel=sp_sexo.getSelectedItem().toString();
         String ejer_sel=sp_ejercicio.getSelectedItem().toString().substring(0,1);
+
 
         switch(ejer_sel) {
 
@@ -161,7 +205,7 @@ public class PerfilFragment extends Fragment {
                 break;
         }
 
-        if(!altura.equals("") && !peso.equals("") && !edad.equals("") && !ejer_sel.equals("")) {
+        if(!altura.equals("0.0") && !peso.equals("0.0") && !edad.equals("0") && !ejer_sel.equals("")) {
 
             peso_f=Double.parseDouble(peso);
             altura_f=Double.parseDouble(altura);
@@ -173,7 +217,7 @@ public class PerfilFragment extends Fragment {
                 cal_diarias=(655 + (9.6* peso_f) + (1.8 * altura_f) - (4.7 * edad_f))*ej; }
 
         }
-        cal_num.setText("0.0/"+String.valueOf(cal_diarias));
+        cal_num.setText(calorias_db + "/"+String.valueOf(cal_diarias));
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -213,5 +257,22 @@ public class PerfilFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    //Método para obtener la posición de un ítem del spinner
+    private static int obtenerPosicionItem(Spinner spinner, String opcion) {
+        //Creamos la variable posicion y lo inicializamos en 0
+        int posicion = 0;
+        //Recorre el spinner en busca del ítem que coincida con el parametro `String fruta`
+        //que lo pasaremos posteriormente
+        for (int i = 0; i < spinner.getCount(); i++) {
+            //Almacena la posición del ítem que coincida con la búsqueda
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(opcion)) {
+                posicion = i;
+            }
+        }
+        //Devuelve un valor entero (si encontro una coincidencia devuelve la
+        // posición 0 o N, de lo contrario devuelve 0 = posición inicial)
+        return posicion;
     }
 }

@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -36,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
@@ -63,7 +64,8 @@ public class LoginActivity extends AppCompatActivity {
                     {
                         case 0:
                             Toast.makeText(v.getContext(),"Bienvenido nuevamente a FitVending",Toast.LENGTH_LONG).show();
-                             main = new Intent(v.getContext(), MainActivity.class);
+
+                            main = new Intent(v.getContext(), MainActivity.class);
                             main.putExtra("UserName",user.getNombreUsuario());
                             startActivity(main);
                             break;

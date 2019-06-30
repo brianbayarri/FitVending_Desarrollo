@@ -1,6 +1,7 @@
 package com.example.fitvending;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
@@ -10,7 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckedTextView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.fitvending.Datos.DBHandler;
+import com.example.fitvending.Datos.UsuarioDAO;
 
 
 /**
@@ -75,10 +80,18 @@ public class LogrosFragment extends Fragment {
         contextoActual = inflater.getContext();
 
         final CheckedTextView logro1, logro2, logro3, logro4;
+        final TextView moneda1,moneda2,moneda3,moneda4;
+
         logro1 = vista.findViewById(R.id.check_Logro1);
         logro2 = vista.findViewById(R.id.check_Logro2);
         logro3 = vista.findViewById(R.id.check_Logro3);
         logro4 = vista.findViewById(R.id.check_Logro4);
+
+        //ValorMonedas
+        moneda1 = vista.findViewById(R.id.lbl_MonedasGanadasLogro1);
+        moneda2 = vista.findViewById(R.id.lbl_MonedasGanadasLogro2);
+        moneda3 = vista.findViewById(R.id.lbl_MonedasGanadasLogro3);
+        moneda4 = vista.findViewById(R.id.lbl_MonedasGanadasLogro4);
 
         logro1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +99,8 @@ public class LogrosFragment extends Fragment {
                 ///actualizar monedas del usuario
                 logro1.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
                 logro1.setChecked(true);
+
+                updateMoney(view.getContext(), moneda1.getText().toString());
             }
         });
 
@@ -95,6 +110,8 @@ public class LogrosFragment extends Fragment {
                 ///actualizar monedas del usuario
                 logro2.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
                 logro2.setChecked(true);
+
+                updateMoney(view.getContext(), moneda2.getText().toString());
             }
         });
 
@@ -104,6 +121,8 @@ public class LogrosFragment extends Fragment {
                 ///actualizar monedas del usuario
                 logro3.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
                 logro3.setChecked(true);
+
+                updateMoney(view.getContext(), moneda3.getText().toString());
             }
         });
 
@@ -113,12 +132,25 @@ public class LogrosFragment extends Fragment {
                 ///actualizar monedas del usuario
                 logro4.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
                 logro4.setChecked(true);
+                updateMoney(view.getContext(), moneda4.getText().toString());
+
             }
         });
 
         return vista;
     }
 
+    public void updateMoney(Context context, String moneda)
+    {
+        //En este archivo tenemos el usuario guardado sin necesidad de pasar parametros
+        MainActivity activity = (MainActivity) getActivity();
+        SharedPreferences preferences = activity.getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        String userName_sp = preferences.getString("UserName", "");
+        DBHandler db = new DBHandler(context);
+        UsuarioDAO userDao = new UsuarioDAO();
+        userDao.actualizarMonedas(db,Integer.parseInt(moneda),userName_sp,0);
+
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
