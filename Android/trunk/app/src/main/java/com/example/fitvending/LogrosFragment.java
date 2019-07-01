@@ -96,15 +96,38 @@ public class LogrosFragment extends Fragment {
         moneda4 = vista.findViewById(R.id.lbl_MonedasGanadasLogro4);
 
         //Si existe los usuarios se setea los datos del usuario
-        DBHandler db = new DBHandler(container.getContext());
+
         final HistoricoDAO historicoDAO = new HistoricoDAO();
-        Historico historico = new Historico();
+
         //En este archivo tenemos el usuario guardado sin necesidad de pasar parametros
         MainActivity activity = (MainActivity) getActivity();
         SharedPreferences preferences = activity.getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
         String userName_sp = preferences.getString("UserName", "");
 
-
+        DBHandler db = new DBHandler(container.getContext());
+        if(historicoDAO.selectRowsByCondition(db,userName_sp,logro1.getText().toString()))
+        {
+            logro1.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
+            logro1.setChecked(true);
+        }
+       db = new DBHandler(container.getContext());
+        if(historicoDAO.selectRowsByCondition(db,userName_sp,logro2.getText().toString()))
+        {
+            logro2.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
+            logro2.setChecked(true);
+        }
+        db = new DBHandler(container.getContext());
+        if(historicoDAO.selectRowsByCondition(db,userName_sp,logro3.getText().toString()))
+        {
+            logro3.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
+            logro3.setChecked(true);
+        }
+        db = new DBHandler(container.getContext());
+        if(historicoDAO.selectRowsByCondition(db,userName_sp,logro4.getText().toString()))
+        {
+            logro4.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
+            logro4.setChecked(true);
+        }
 
 
         logro1.setOnClickListener(new View.OnClickListener() {
