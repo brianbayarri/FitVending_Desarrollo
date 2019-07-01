@@ -3,6 +3,7 @@ package com.example.fitvending;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,9 +20,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fitvending.Datos.DBHandler;
+import com.example.fitvending.Datos.UsuarioDAO;
+import com.example.fitvending.entidades.Usuario;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 import java.util.UUID;
 
 
@@ -49,8 +55,9 @@ public class MainFragment extends Fragment {
     private BluetoothAdapter btAdapter = null;
 
     Button Producto1,Producto2,Producto3,Producto4;
-    TextView sinStocklblP1,sinStocklblP2,sinStocklblP3,sinStocklblP4;
+    TextView sinStocklblP1,sinStocklblP2,sinStocklblP3,sinStocklblP4,txtMonedas, txtCalorias;
     private boolean stockP1,stockP2,stockP3,stockP4;
+    String userName;
 
     public String colorSinStock = "#D31E1F29";
     public String colorHayStock = "#FFFFFF";
@@ -90,7 +97,7 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         vista = inflater.inflate(R.layout.fragment_main, container, false);
@@ -101,6 +108,8 @@ public class MainFragment extends Fragment {
             parsearStock("1-1-1-1");
         else
             parsearStock(BtConnectionService.Stock);
+        MainActivity activity = (MainActivity) getActivity();
+        userName = activity.getUserNameByFragment();
 
         sinStocklblP1 = vista.findViewById(R.id.lbl_sinStockP1);
         sinStocklblP2 = vista.findViewById(R.id.lbl_sinStockP2);
@@ -111,6 +120,25 @@ public class MainFragment extends Fragment {
         Producto2 = vista.findViewById(R.id.btn_imgCereal);
         Producto3 = vista.findViewById(R.id.btn_imgFrutos);
         Producto4 = vista.findViewById(R.id.btn_imgAlfajor);
+
+
+        txtMonedas = vista.findViewById(R.id.txt_money);
+        txtCalorias =  vista.findViewById(R.id.lbl_CaloriasNum_P);
+
+        Usuario datos= new Usuario();
+        datos = selectData(container.getContext());
+        if(datos != null)
+        {
+            txtMonedas.setText(String.valueOf(datos.getMoneda()));
+            txtCalorias.setText(String.valueOf(new DecimalFormat("#.##").format(datos.getCalorias())));
+        }
+        else
+        {
+            txtMonedas.setText(String.valueOf(0));
+            txtCalorias.setText(String.valueOf(0.0));
+        }
+
+        stockP1 = true;
 
         if(stockP1)
             sinStocklblP1.setBackgroundColor(Color.TRANSPARENT);

@@ -19,14 +19,17 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(UsuarioDAO.CREATE_USUARIO_TABLE);
-        //Agregar el resto de tablas
+        db.execSQL(HistoricoDAO.CREATE_HISTORICO_TABLE);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(UsuarioDAO.DELETE_USUARIO_TABLE);
-        //Agregar el resto de tablas
+        db.execSQL(HistoricoDAO.DELETE_HISTORICO_TABLE);
+
         db.execSQL(UsuarioDAO.CREATE_USUARIO_TABLE);
+        db.execSQL(HistoricoDAO.CREATE_HISTORICO_TABLE);
     }
 
     public Context getContext() {

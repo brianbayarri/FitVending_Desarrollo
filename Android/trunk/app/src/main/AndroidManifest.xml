@@ -24,6 +24,10 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".Bluetoothactivity"></activity>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 439ce8c0a8d00726b216c1c7014fa796cff3c3fe
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
