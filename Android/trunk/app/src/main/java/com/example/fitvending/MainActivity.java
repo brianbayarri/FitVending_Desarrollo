@@ -31,6 +31,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
+
+import static com.example.fitvending.BtConnectionService.consultarStock;
 import static com.example.fitvending.BtConnectionService.detenerBt;
 import static com.example.fitvending.BtConnectionService.enviarDatosAArduino;
 
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity
 
         super.onResume();
         Toast.makeText(getBaseContext(), BtConnectionService.Stock, Toast.LENGTH_LONG).show();
+
     }
 
 

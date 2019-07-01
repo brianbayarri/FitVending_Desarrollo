@@ -173,23 +173,30 @@ public class MainFragment extends Fragment {
 
                 infoUser = userDao.selectAllRows(db,userName);
 
-                if(infoUser.getEdad()!=0) {
+                if(infoUser.getEdad()!=0) { ///pregunta si el usuario completo su perfil
 
-                    if (stockP1) {
-                        if (infoUser.getCalorias() <= 99) {
+                    if (stockP1) {  ///pregunta si hay stock
+                        if (infoUser.getCalorias() <= 99) {  ///pregunta si tiene calorias para gastar
 
                             userDao.actualizarCalorias(db, 99, userName, 0);
                             BtConnectionService.enviarDatosAArduino("1");
                             Toast.makeText(getContext(), "Calorias actualizadas", Toast.LENGTH_LONG).show();
                             //Me dirijo a la pantalla de exito
+                            BtConnectionService.consultarStock();
+                            parsearStock(BtConnectionService.Stock);
                             Intent intent = new Intent(getActivity(),SuccessRetiroActivity.class);
+                            intent.putExtra("UserName",userName);
                             startActivity(intent);
-                        } else if (infoUser.getMoneda() >= 30) {
+
+                        } else if (infoUser.getMoneda() >= 30) { ///pregunto si tiene monedas para gastar
                             userDao.actualizarMonedas(db, 30, userName, 1);
                             BtConnectionService.enviarDatosAArduino("1");
                             Toast.makeText(getContext(), "Monedas actualizadas", Toast.LENGTH_LONG).show();
                             //Me dirijo a la pantalla de exito
+                            BtConnectionService.consultarStock();
+                            parsearStock(BtConnectionService.Stock);
                             Intent intent = new Intent(getActivity(),SuccessRetiroActivity.class);
+                            intent.putExtra("UserName",userName);
                             startActivity(intent);
                         } else
                             Toast.makeText(getContext(), "No puedes obtener el producto, quema calorias o consigue monedas!", Toast.LENGTH_LONG).show();
@@ -206,13 +213,6 @@ public class MainFragment extends Fragment {
             {
                 if(stockP2) {
 
-                    //Me dirijo a la pantalla de exito
-                    BtConnectionService.consultarStock();
-                    Intent intent = new Intent(getActivity(),SuccessRetiroActivity.class);
-                    intent.putExtra("UserName",userName);
-                    startActivity(intent);
-                    //Toast.makeText(getContext(),BtConnectionService.Stock,Toast.LENGTH_LONG).show();
-                     //BtConnectionService.enviarDatosAArduino("2");
                 }
                 else
                     Toast.makeText(getContext(),"No hay stock de este producto",Toast.LENGTH_LONG).show();
@@ -238,14 +238,20 @@ public class MainFragment extends Fragment {
                             BtConnectionService.enviarDatosAArduino("3");
                             Toast.makeText(getContext(), "Calorias actualizadas", Toast.LENGTH_LONG).show();
                             //Me dirijo a la pantalla de exito
+                            BtConnectionService.consultarStock();
+                            parsearStock(BtConnectionService.Stock);
                             Intent intent = new Intent(getActivity(),SuccessRetiroActivity.class);
+                            intent.putExtra("UserName",userName);
                             startActivity(intent);
                         } else if (infoUser.getMoneda() >= 40) {
                             userDao.actualizarMonedas(db, 40, userName, 1);
                             BtConnectionService.enviarDatosAArduino("3");
                             Toast.makeText(getContext(), "Monedas actualizadas", Toast.LENGTH_LONG).show();
                             //Me dirijo a la pantalla de exito
+                            BtConnectionService.consultarStock();
+                            parsearStock(BtConnectionService.Stock);
                             Intent intent = new Intent(getActivity(),SuccessRetiroActivity.class);
+                            intent.putExtra("UserName",userName);
                             startActivity(intent);
                         } else
                             Toast.makeText(getContext(), "No puedes obtener el producto, quema calorias o consigue monedas!", Toast.LENGTH_LONG).show();
@@ -275,14 +281,20 @@ public class MainFragment extends Fragment {
                             BtConnectionService.enviarDatosAArduino("4");
                             Toast.makeText(getContext(), "Calorias actualizadas", Toast.LENGTH_LONG).show();
                             //Me dirijo a la pantalla de exito
+                            BtConnectionService.consultarStock();
+                            parsearStock(BtConnectionService.Stock);
                             Intent intent = new Intent(getActivity(),SuccessRetiroActivity.class);
+                            intent.putExtra("UserName",userName);
                             startActivity(intent);
                         } else if (infoUser.getMoneda() >= 50) {
                             userDao.actualizarMonedas(db, 50, userName, 1);
                             BtConnectionService.enviarDatosAArduino("4");
                             Toast.makeText(getContext(), "Monedas actualizadas", Toast.LENGTH_LONG).show();
                             //Me dirijo a la pantalla de exito
+                            BtConnectionService.consultarStock();
+                            parsearStock(BtConnectionService.Stock);
                             Intent intent = new Intent(getActivity(),SuccessRetiroActivity.class);
+                            intent.putExtra("UserName",userName);
                             startActivity(intent);
                         } else
                             Toast.makeText(getContext(), "No puedes obtener el producto, quema calorias o consigue monedas!", Toast.LENGTH_LONG).show();
