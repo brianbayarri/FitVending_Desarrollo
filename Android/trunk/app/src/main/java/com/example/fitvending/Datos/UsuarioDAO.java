@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
+import com.example.fitvending.entidades.Historico;
 import com.example.fitvending.entidades.Usuario;
 
 import java.text.SimpleDateFormat;
@@ -196,6 +197,20 @@ public class UsuarioDAO {
 
             if (error != 0) {
                 Toast.makeText(dbHandler.getContext(), "Calorías actualizadas", Toast.LENGTH_SHORT).show();
+
+                if(i < 2)
+                {
+                    Historico historico = new Historico();
+                    historico.setLogro("");
+                    historico.setCalorias(cal_total);
+                    historico.setNombreUsuario(userName);
+
+                    //Registar Historico
+                    HistoricoDAO historicoDAO = new HistoricoDAO();
+                    historicoDAO.registrarHistorico(dbHandler,historico);
+                }
+
+
                 database.close();
                 return true;
             }

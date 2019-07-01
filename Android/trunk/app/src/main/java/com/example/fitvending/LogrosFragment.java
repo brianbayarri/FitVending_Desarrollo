@@ -15,7 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fitvending.Datos.DBHandler;
+import com.example.fitvending.Datos.HistoricoDAO;
 import com.example.fitvending.Datos.UsuarioDAO;
+import com.example.fitvending.entidades.Historico;
 
 
 /**
@@ -93,6 +95,18 @@ public class LogrosFragment extends Fragment {
         moneda3 = vista.findViewById(R.id.lbl_MonedasGanadasLogro3);
         moneda4 = vista.findViewById(R.id.lbl_MonedasGanadasLogro4);
 
+        //Si existe los usuarios se setea los datos del usuario
+        DBHandler db = new DBHandler(container.getContext());
+        final HistoricoDAO historicoDAO = new HistoricoDAO();
+        Historico historico = new Historico();
+        //En este archivo tenemos el usuario guardado sin necesidad de pasar parametros
+        MainActivity activity = (MainActivity) getActivity();
+        SharedPreferences preferences = activity.getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        String userName_sp = preferences.getString("UserName", "");
+
+
+
+
         logro1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,7 +114,7 @@ public class LogrosFragment extends Fragment {
                 logro1.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
                 logro1.setChecked(true);
 
-                updateMoney(view.getContext(), moneda1.getText().toString());
+                updateMoneyYRegistrarHistorico(view.getContext(), moneda1.getText().toString(),logro1.getText().toString());
             }
         });
 
@@ -111,7 +125,8 @@ public class LogrosFragment extends Fragment {
                 logro2.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
                 logro2.setChecked(true);
 
-                updateMoney(view.getContext(), moneda2.getText().toString());
+                updateMoneyYRegistrarHistorico(view.getContext(), moneda2.getText().toString(),logro2.getText().toString());
+
             }
         });
 
@@ -122,7 +137,7 @@ public class LogrosFragment extends Fragment {
                 logro3.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
                 logro3.setChecked(true);
 
-                updateMoney(view.getContext(), moneda3.getText().toString());
+                updateMoneyYRegistrarHistorico(view.getContext(), moneda3.getText().toString(),logro3.getText().toString());
             }
         });
 
@@ -132,7 +147,8 @@ public class LogrosFragment extends Fragment {
                 ///actualizar monedas del usuario
                 logro4.setCheckMarkTintList(ColorStateList.valueOf(VERDE_REF));
                 logro4.setChecked(true);
-                updateMoney(view.getContext(), moneda4.getText().toString());
+
+                updateMoneyYRegistrarHistorico(view.getContext(), moneda4.getText().toString(),logro4.getText().toString());
 
             }
         });
@@ -140,7 +156,7 @@ public class LogrosFragment extends Fragment {
         return vista;
     }
 
-    public void updateMoney(Context context, String moneda)
+    public void updateMoneyYRegistrarHistorico(Context context, String moneda, String logro)
     {
         //En este archivo tenemos el usuario guardado sin necesidad de pasar parametros
         MainActivity activity = (MainActivity) getActivity();
@@ -150,7 +166,20 @@ public class LogrosFragment extends Fragment {
         UsuarioDAO userDao = new UsuarioDAO();
         userDao.actualizarMonedas(db,Integer.parseInt(moneda),userName_sp,0);
 
+        db = new DBHandler(context);
+        HistoricoDAO historicodao = new HistoricoDAO();
+        Historico historico = new Historico();
+        historico = historicodao.selectAllRows(db, userName_sp);
+
+        historico.setNombreUsuario(userName_sp);
+        historico.setLogro(logro);
+
+
+        db = new DBHandler(context);
+        historicodao.registrarHistorico(db,historico);
     }
+
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

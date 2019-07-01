@@ -6,7 +6,7 @@ public class Historico {
     private String nombreUsuario;
     private String  logro;
     private double calorias;
-    private Date date;
+    private String date;
 
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
@@ -16,7 +16,7 @@ public class Historico {
         this.calorias = calorias;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -32,7 +32,7 @@ public class Historico {
         return calorias;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
