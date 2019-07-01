@@ -138,7 +138,7 @@ public class MainFragment extends Fragment {
             txtCalorias.setText(String.valueOf(0.0));
         }
 
-        stockP1 = true;
+
 
         if(stockP1)
             sinStocklblP1.setBackgroundColor(Color.TRANSPARENT);
