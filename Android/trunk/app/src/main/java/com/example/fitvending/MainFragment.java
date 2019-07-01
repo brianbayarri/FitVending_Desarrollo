@@ -166,11 +166,32 @@ public class MainFragment extends Fragment {
         Producto1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                if(stockP1) {
-                    BtConnectionService.enviarDatosAArduino("1");
+                DBHandler db;
+                db = new DBHandler(container.getContext());
+                UsuarioDAO userDao = new UsuarioDAO();
+                Usuario infoUser = new Usuario();
+
+                infoUser = userDao.selectAllRows(db,userName);
+
+                if(infoUser.getEdad()!=0) {
+
+                    if (stockP1) {
+                        if (infoUser.getCalorias() <= 99) {
+
+                            userDao.actualizarCalorias(db, 99, userName, 0);
+                            BtConnectionService.enviarDatosAArduino("1");
+                            Toast.makeText(getContext(), "Calorias actualizadas", Toast.LENGTH_LONG).show();
+                        } else if (infoUser.getMoneda() >= 30) {
+                            userDao.actualizarMonedas(db, 30, userName, 1);
+                            BtConnectionService.enviarDatosAArduino("1");
+                            Toast.makeText(getContext(), "Monedas actualizadas", Toast.LENGTH_LONG).show();
+                        } else
+                            Toast.makeText(getContext(), "No puedes obtener el producto, quema calorias o consigue monedas!", Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(getContext(), "No hay stock de este producto", Toast.LENGTH_LONG).show();
                 }
                 else
-                    Toast.makeText(getContext(),"No hay stock de este producto",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Complete su perfil antes de seleccionar un producto", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -188,24 +209,64 @@ public class MainFragment extends Fragment {
         });
 
         Producto3.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                if(stockP3) {
-                    BtConnectionService.enviarDatosAArduino("3");
+            public void onClick(View v) {
+                DBHandler db;
+                db = new DBHandler(container.getContext());
+                UsuarioDAO userDao = new UsuarioDAO();
+                Usuario infoUser = new Usuario();
+
+                infoUser = userDao.selectAllRows(db, userName);
+
+                if (infoUser.getEdad() != 0) {
+
+                    if (stockP3) {
+                        if (infoUser.getCalorias() <= 99) {
+
+                            userDao.actualizarCalorias(db, 99, userName, 0);
+                            BtConnectionService.enviarDatosAArduino("3");
+                            Toast.makeText(getContext(), "Calorias actualizadas", Toast.LENGTH_LONG).show();
+                        } else if (infoUser.getMoneda() >= 40) {
+                            userDao.actualizarMonedas(db, 40, userName, 1);
+                            BtConnectionService.enviarDatosAArduino("3");
+                            Toast.makeText(getContext(), "Monedas actualizadas", Toast.LENGTH_LONG).show();
+                        } else
+                            Toast.makeText(getContext(), "No puedes obtener el producto, quema calorias o consigue monedas!", Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(getContext(), "No hay stock de este producto", Toast.LENGTH_LONG).show();
                 }
                 else
-                    Toast.makeText(getContext(),"No hay stock de este producto",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Complete su perfil antes de seleccionar un producto", Toast.LENGTH_LONG).show();
             }
         });
 
         Producto4.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                if(stockP4) {
-                    BtConnectionService.enviarDatosAArduino("4");
+            public void onClick(View v) {
+                DBHandler db;
+                db = new DBHandler(container.getContext());
+                UsuarioDAO userDao = new UsuarioDAO();
+                Usuario infoUser = new Usuario();
+
+                infoUser = userDao.selectAllRows(db, userName);
+
+                if (infoUser.getEdad() != 0) {
+
+                    if (stockP4) {
+                        if (infoUser.getCalorias() <= 99) {
+
+                            userDao.actualizarCalorias(db, 99, userName, 0);
+                            BtConnectionService.enviarDatosAArduino("4");
+                            Toast.makeText(getContext(), "Calorias actualizadas", Toast.LENGTH_LONG).show();
+                        } else if (infoUser.getMoneda() >= 50) {
+                            userDao.actualizarMonedas(db, 50, userName, 1);
+                            BtConnectionService.enviarDatosAArduino("4");
+                            Toast.makeText(getContext(), "Monedas actualizadas", Toast.LENGTH_LONG).show();
+                        } else
+                            Toast.makeText(getContext(), "No puedes obtener el producto, quema calorias o consigue monedas!", Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(getContext(), "No hay stock de este producto", Toast.LENGTH_LONG).show();
                 }
                 else
-                    Toast.makeText(getContext(),"No hay stock de este producto",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Complete su perfil antes de seleccionar un producto", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -213,7 +274,27 @@ public class MainFragment extends Fragment {
         return vista;
     }
 
+    public Usuario selectData(Context context)
+    {
+        try {
+            //En este archivo tenemos el usuario guardado sin necesidad de pasar parametros
+            MainActivity activity = (MainActivity) getActivity();
+            SharedPreferences preferences = activity.getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+            String userName_sp = preferences.getString("UserName", "");
+            DBHandler db = new DBHandler(context);
+            UsuarioDAO userDao = new UsuarioDAO();
+            Usuario info = new Usuario();
+            info = userDao.selectAllRows(db, userName_sp);
+            if (info != null) {
+                return info;
+            }
+        }catch(Exception e)
+        {
+            Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+        }
+        return null;
 
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
