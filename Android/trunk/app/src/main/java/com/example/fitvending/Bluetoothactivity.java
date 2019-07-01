@@ -48,6 +48,8 @@ public class Bluetoothactivity extends AppCompatActivity {
         IdDesconectar = (Button) findViewById(R.id.IdDesconectar);
         IdBufferIn = (TextView) findViewById(R.id.IdBufferIn);
 
+
+
         bluetoothIn = new Handler() {
             public void handleMessage(android.os.Message msg) {
                 if (msg.what == handlerState) {

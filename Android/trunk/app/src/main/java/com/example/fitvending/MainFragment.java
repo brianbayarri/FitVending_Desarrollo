@@ -54,6 +54,7 @@ public class MainFragment extends Fragment {
 
     public String colorSinStock = "#D31E1F29";
     public String colorHayStock = "#FFFFFF";
+    private String stockDisp;
 
     public MainFragment() {
         // Required empty public constructor
@@ -85,6 +86,7 @@ public class MainFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+
     }
 
     @Override
@@ -93,7 +95,12 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         vista = inflater.inflate(R.layout.fragment_main, container, false);
         contextoActual = inflater.getContext();
+        //Se parsea el stock recibido desde Arduino.
 
+        if(BtConnectionService.Stock == null)
+            parsearStock("1-1-1-1");
+        else
+            parsearStock(BtConnectionService.Stock);
 
         sinStocklblP1 = vista.findViewById(R.id.lbl_sinStockP1);
         sinStocklblP2 = vista.findViewById(R.id.lbl_sinStockP2);
@@ -105,25 +112,23 @@ public class MainFragment extends Fragment {
         Producto3 = vista.findViewById(R.id.btn_imgFrutos);
         Producto4 = vista.findViewById(R.id.btn_imgAlfajor);
 
-        stockP1 = true;
         if(stockP1)
             sinStocklblP1.setBackgroundColor(Color.TRANSPARENT);
         else
             sinStocklblP1.setBackgroundColor(Color.parseColor(colorSinStock));
 
-        stockP2 = true;
         if(stockP2)
             sinStocklblP2.setBackgroundColor(Color.TRANSPARENT);
         else
             sinStocklblP2.setBackgroundColor(Color.parseColor(colorSinStock));
 
-        stockP3 = true;
+
         if(stockP3)
             sinStocklblP3.setBackgroundColor(Color.TRANSPARENT);
         else
             sinStocklblP3.setBackgroundColor(Color.parseColor(colorSinStock));
 
-        stockP4 = true;
+
         if(stockP4)
             sinStocklblP4.setBackgroundColor(Color.TRANSPARENT);
         else
@@ -145,7 +150,8 @@ public class MainFragment extends Fragment {
             public void onClick(View v)
             {
                 if(stockP2) {
-                   // BtConnectionService.enviarDatosAArduino("2");
+                    Toast.makeText(getContext(),BtConnectionService.Stock,Toast.LENGTH_LONG).show();
+                     //BtConnectionService.enviarDatosAArduino("2");
                 }
                 else
                     Toast.makeText(getContext(),"No hay stock de este producto",Toast.LENGTH_LONG).show();
@@ -220,5 +226,38 @@ public class MainFragment extends Fragment {
     }
 
 
+
+    public void parsearStock(String stock){
+
+        String DstockP1,DstockP2,DstockP3,DstockP4;
+
+        String[] parse = stock.split("-");
+
+        DstockP1 = parse[0];
+        DstockP2 = parse[1];
+        DstockP3 = parse[2];
+        DstockP4 = parse[3];
+
+        if(DstockP1.equals("0"))
+            stockP1 = true;
+        else
+            stockP1=false;
+
+        if(DstockP2.equals("0"))
+            stockP2 = true;
+        else
+            stockP2=false;
+
+        if(DstockP3.equals("0"))
+            stockP3 = true;
+        else
+            stockP3=false;
+
+        if(DstockP4.equals("0"))
+            stockP4 = true;
+        else
+            stockP4=false;
+
+    }
 
 }

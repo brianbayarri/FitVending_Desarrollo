@@ -126,22 +126,5 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void onResume(){
 
-        super.onResume();
-
-        BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter(); // get Bluetooth adapter
-
-        if(btAdapter==null) {
-            Toast.makeText(getBaseContext(), "El dispositivo no soporta bluetooth", Toast.LENGTH_LONG).show();
-        } else {
-            if (btAdapter.isEnabled()) {
-            } else {
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, 1);
-            }
-        }
-
-
-    }
 }

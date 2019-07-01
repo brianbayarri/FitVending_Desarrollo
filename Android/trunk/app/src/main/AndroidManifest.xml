@@ -24,14 +24,6 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".Bluetoothactivity"></activity>
-        <activity android:name=".MainInicio"
-            android:theme="@android:style/Theme.NoDisplay">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />

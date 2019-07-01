@@ -20,6 +20,9 @@ public class SensorsService extends Service implements SensorEventListener {
 
     private SensorManager sensorManager;
 
+    //PASOS
+    private int pasosDados;
+
     //SHAKE
     private float acelVal;
     private float acelLast;
@@ -93,7 +96,7 @@ public class SensorsService extends Service implements SensorEventListener {
             float delta = acelVal-acelLast;
             shake = shake * 0.9f + delta;
 
-            if(shake>12) {
+            if(shake>18) {
                // Toast.makeText(this, "Usted me enciende, digo agita", Toast.LENGTH_LONG).show();
                 BtConnectionService.enviarDatosAArduino("5");
 
