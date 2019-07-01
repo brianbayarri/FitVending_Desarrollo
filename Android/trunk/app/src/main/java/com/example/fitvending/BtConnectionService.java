@@ -20,18 +20,21 @@ import java.util.UUID;
 
 public class BtConnectionService extends Service {
 
-    TextView IdBufferIn;
+    public TextView IdBufferIn;
+    public static String buffercito;
     //-------------------------------------------
-    Handler bluetoothIn;
-    final int handlerState = 0;
-    private BluetoothAdapter btAdapter = null;
-    private static BluetoothSocket btSocket = null;
-    private StringBuilder DataStringIN = new StringBuilder();
+    static Handler bluetoothIn;
+    final static int handlerState = 0;
+    private BluetoothAdapter btAdapter;
+    private static BluetoothSocket btSocket;
+    private static StringBuilder DataStringIN = new StringBuilder();
     public static ConnectedThread MyConexionBT;
     // Identificador unico de servicio - SPP UUID
     private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     // String para la direccion MAC
     private static String address = null;
+
+    public static String Stock;
 
 
     @Override
@@ -44,17 +47,22 @@ public class BtConnectionService extends Service {
     public void onCreate() {
         super.onCreate();
 
+        //CONSULTO EL STOCK DE LOS PRODUCTOS
+
         bluetoothIn = new Handler() {
             public void handleMessage(android.os.Message msg) {
                 if (msg.what == handlerState) {
                     String readMessage = (String) msg.obj;
                     DataStringIN.append(readMessage);
-
+                    buffercito=readMessage;
+                    //Toast.makeText(getBaseContext(), readMessage, Toast.LENGTH_LONG).show();
                     int endOfLineIndex = DataStringIN.indexOf("#");
 
                     if (endOfLineIndex > 0) {
                         String dataInPrint = DataStringIN.substring(0, endOfLineIndex);
-                        IdBufferIn.setText("Dato: " + dataInPrint);//<-<- PARTE A MODIFICAR >->->
+                        //IdBufferIn.setText(dataInPrint);
+                            Stock = dataInPrint;
+
                         DataStringIN.delete(0, DataStringIN.length());
                     }
                 }
@@ -62,8 +70,7 @@ public class BtConnectionService extends Service {
         };
 
         btAdapter = BluetoothAdapter.getDefaultAdapter(); // get Bluetooth adapter
-        VerificarEstadoBT();
-
+       // VerificarEstadoBT();
 
     }
 
@@ -93,6 +100,10 @@ public class BtConnectionService extends Service {
         MyConexionBT = new ConnectedThread(btSocket);
         MyConexionBT.start();
 
+        //Consultar Stock
+        MyConexionBT.write("0");
+
+
         return START_NOT_STICKY;
     }
 
@@ -119,12 +130,19 @@ public class BtConnectionService extends Service {
 
     }
 
+    public static void consultarStock(){
+
+        enviarDatosAArduino("0");
+
+    }
+
 
     public static void enviarDatosAArduino(String datoAEnviar){
 
         MyConexionBT.write(datoAEnviar);
 
     }
+
 
     public static void detenerBt(){
         try {

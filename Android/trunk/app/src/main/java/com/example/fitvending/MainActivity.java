@@ -32,6 +32,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 import static com.example.fitvending.BtConnectionService.detenerBt;
+import static com.example.fitvending.BtConnectionService.enviarDatosAArduino;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         CronometroFragment.OnFragmentInteractionListener,
@@ -56,7 +58,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         Bundle datos = this.getIntent().getExtras();
          userName = datos.getString("UserName");
-
         SharedPreferences prefs =
                 getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = prefs.edit();
@@ -78,11 +79,6 @@ public class MainActivity extends AppCompatActivity
         Fragment frag = new MainFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.content_main, frag).commit();
         navigationView.setNavigationItemSelectedListener(this);
-
-        Intent bt = new Intent(this,BtConnectionService.class);
-        startService(bt);
-
-
 
     }
 
@@ -181,12 +177,13 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /*
     @Override
     public void onPause()
     {
         super.onPause();
         detenerBt();
-    }
+    }*/
 
     @Override
     public void onStop()
@@ -195,9 +192,27 @@ public class MainActivity extends AppCompatActivity
         detenerBt();
     }
 
+    @Override
+    public void onRestart()
+    {
+        super.onRestart();
+        Intent restaurar = new Intent(this,PantallaDeCarga.class);
+        startActivity(restaurar);
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        detenerBt();
+        Intent servicioSensores = new Intent(this,SensorsService.class);
+        stopService(servicioSensores);
+    }
+
 
     public String getUserNameByFragment()
     {
         return userName;
     }
+
+
 }
