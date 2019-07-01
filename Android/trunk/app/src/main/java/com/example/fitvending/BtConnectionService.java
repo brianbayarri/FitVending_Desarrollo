@@ -132,13 +132,18 @@ public class BtConnectionService extends Service {
 
     public static void consultarStock(){
 
+        if(btSocket.isConnected())
         enviarDatosAArduino("0");
+        else
+           Stock = "1-0-1-1";
+
 
     }
 
 
     public static void enviarDatosAArduino(String datoAEnviar){
 
+        if(btSocket.isConnected())
         MyConexionBT.write(datoAEnviar);
 
     }

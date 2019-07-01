@@ -82,6 +82,13 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public void onResume(){
+
+        super.onResume();
+        Toast.makeText(getBaseContext(), BtConnectionService.Stock, Toast.LENGTH_LONG).show();
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -134,8 +141,8 @@ public class MainActivity extends AppCompatActivity
             seleccion = true;
             toolbar.setTitle("Cronometro");
         } else if (id == R.id.nav_slideshow) {
-            intent = new Intent(this,Bluetoothactivity.class);
-            startActivity(intent);
+            //intent = new Intent(this,Bluetoothactivity.class);
+            //startActivity(intent);
 
         } else if (id == R.id.nav_tools) {
 
@@ -189,7 +196,7 @@ public class MainActivity extends AppCompatActivity
     public void onStop()
     {
         super.onStop();
-        detenerBt();
+        //detenerBt();
     }
 
     @Override

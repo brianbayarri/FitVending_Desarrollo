@@ -10,10 +10,8 @@
         android:required="true" />
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
-
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -22,13 +20,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".Bluetoothactivity"></activity>
-
+        <activity android:name=".SuccessRetiroActivity"></activity>
+        <activity android:name=".Bluetoothactivity" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-
         <activity
             android:name=".PantallaDeCarga"
             android:theme="@style/AppTheme.NoActionBar">
@@ -51,12 +47,9 @@
         <service
             android:name=".SensorsService"
             android:enabled="true" />
-
         <service
             android:name=".BtConnectionService"
-            android:enabled="true"
-            ></service>
-
+            android:enabled="true" />
     </application>
 
 </manifest>

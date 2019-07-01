@@ -28,14 +28,9 @@ public class PantallaDeCarga extends AppCompatActivity {
             }
         }
 
-
-
-        //Aca poner los permisos
-
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run(){
-                // Cuando pasen los 3 segundos, pasamos a la actividad principal de la aplicación
 
                 Intent intent = new Intent(PantallaDeCarga.this, LoginActivity.class);
                 startActivity(intent);
@@ -43,7 +38,6 @@ public class PantallaDeCarga extends AppCompatActivity {
             };
         }, tiempo);
     }
-
 
 
     public void onResume(){
