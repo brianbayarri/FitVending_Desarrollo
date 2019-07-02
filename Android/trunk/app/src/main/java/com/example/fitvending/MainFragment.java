@@ -176,9 +176,9 @@ public class MainFragment extends Fragment {
                 if(infoUser.getEdad()!=0) { ///pregunta si el usuario completo su perfil
 
                     if (stockP1) {  ///pregunta si hay stock
-                        if ((infoUser.getCalorias_max()-infoUser.getCalorias()) >= 99) {  ///pregunta si tiene calorias para gastar
+                        if ((infoUser.getCalorias_max()-infoUser.getCalorias()) >= 120) {  ///pregunta si tiene calorias para gastar
 
-                            userDao.actualizarCalorias(db, 99, userName, 0);
+                            userDao.actualizarCalorias(db, 120, userName, 0);
                             BtConnectionService.enviarDatosAArduino("1");
                             Toast.makeText(getContext(), "Calorias actualizadas", Toast.LENGTH_LONG).show();
                             //Me dirijo a la pantalla de exito
@@ -212,7 +212,7 @@ public class MainFragment extends Fragment {
             public void onClick(View v)
             {
                 if(stockP2) {
-
+                    Toast.makeText(getContext(),"Motor dañado, comuniquese con servicio tecnico",Toast.LENGTH_LONG).show();
                 }
                 else
                     Toast.makeText(getContext(),"No hay stock de este producto",Toast.LENGTH_LONG).show();
@@ -232,9 +232,9 @@ public class MainFragment extends Fragment {
                 if (infoUser.getEdad() != 0) {
 
                     if (stockP3) {
-                        if ((infoUser.getCalorias_max()-infoUser.getCalorias()) >= 99) {
+                        if ((infoUser.getCalorias_max()-infoUser.getCalorias()) >= 159) {
 
-                            userDao.actualizarCalorias(db, 99, userName, 0);
+                            userDao.actualizarCalorias(db, 159, userName, 0);
                             BtConnectionService.enviarDatosAArduino("3");
                             Toast.makeText(getContext(), "Calorias actualizadas", Toast.LENGTH_LONG).show();
                             //Me dirijo a la pantalla de exito
@@ -275,9 +275,9 @@ public class MainFragment extends Fragment {
                 if (infoUser.getEdad()!=0) {
 
                     if (stockP4) {
-                        if ((infoUser.getCalorias_max()-infoUser.getCalorias()) >= 99) {
+                        if ((infoUser.getCalorias_max()-infoUser.getCalorias()) >= 186) {
 
-                            userDao.actualizarCalorias(db, 99, userName, 0);
+                            userDao.actualizarCalorias(db, 186, userName, 0);
                             BtConnectionService.enviarDatosAArduino("4");
                             Toast.makeText(getContext(), "Calorias actualizadas", Toast.LENGTH_LONG).show();
                             //Me dirijo a la pantalla de exito

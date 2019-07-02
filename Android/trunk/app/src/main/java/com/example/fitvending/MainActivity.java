@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity
     public void onResume(){
 
         super.onResume();
-        Toast.makeText(getBaseContext(), BtConnectionService.Stock, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getBaseContext(), BtConnectionService.Stock, Toast.LENGTH_LONG).show();
 
     }
 
