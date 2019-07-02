@@ -33,6 +33,11 @@ public class SensorsService extends Service implements SensorEventListener {
     //PROXIMIDAD
     private int modificaciones;
 
+    //Hora
+    private long fechaActual,fechaInicioMillis;
+    public static long millisEnHora = 3600000; //EQUIVALE A UNA HORA EN MILISEGUNDOS
+    public static long minEnMillis = 60000; //EQUIVALE A UN MINUTO EN MILISEGUNDOS
+    public static long cincosegEnMillis = 5000; //EQUIVALE A UN 5 SEGUNDOS EN MILISEGUNDOS
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -49,7 +54,7 @@ public class SensorsService extends Service implements SensorEventListener {
 
         modificaciones = 0;
 
-        String primera_hora = getCurrentDate();
+        fechaInicioMillis = Calendar.getInstance().getTimeInMillis(); //OBTENGO LA FECHA EN QUE SE INICIA EL SERVICE
 
     }
 
@@ -83,10 +88,19 @@ public class SensorsService extends Service implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
 
+
         if(event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
-            float pasos = event.values[0];
-            String pasostext = String.valueOf(pasos);
-            //Toast.makeText(this, pasostext, Toast.LENGTH_LONG).show();
+
+            fechaActual = Calendar.getInstance().getTimeInMillis(); //OBTENGO LA FECHA EN QUE SE HACE UN PASO
+
+            if ((fechaActual - fechaInicioMillis) > millisEnHora) //SI LA RESTA ENTRE LA HORA DEL PASO Y LA HORA DE INICIO SUPERA UNA HORA (AHORA ESTA EN UN MINUTO PARA PROBAR) DEBERIA ENTRAR AL IF Y GUARDAR CALORIAS
+            {
+                fechaInicioMillis = Calendar.getInstance().getTimeInMillis(); //ACA RESETEO LA HORA DE INICIO A LA HORA EN QUE SE GUARDAN LAS CALORIAS
+
+                float pasos = event.values[0];
+                String pasostext = String.valueOf(pasos);
+                Toast.makeText(this, pasostext, Toast.LENGTH_LONG).show();
+            }
         }
         else if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
 
