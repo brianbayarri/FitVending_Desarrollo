@@ -105,7 +105,7 @@ public class MainFragment extends Fragment {
         //Se parsea el stock recibido desde Arduino.
 
         if(BtConnectionService.Stock == null)
-            parsearStock("1-0-1-1");
+            parsearStock("1-1-1-1");
         else
             parsearStock(BtConnectionService.Stock);
         MainActivity activity = (MainActivity) getActivity();
@@ -130,7 +130,7 @@ public class MainFragment extends Fragment {
         if(datos != null)
         {
             txtMonedas.setText(String.valueOf(datos.getMoneda()));
-            txtCalorias.setText(String.valueOf(new DecimalFormat("#.##").format(datos.getCalorias())));
+            txtCalorias.setText(String.valueOf(new DecimalFormat("#.##").format(datos.getCalorias_max()-datos.getCalorias())));
         }
         else
         {
@@ -176,7 +176,7 @@ public class MainFragment extends Fragment {
                 if(infoUser.getEdad()!=0) { ///pregunta si el usuario completo su perfil
 
                     if (stockP1) {  ///pregunta si hay stock
-                        if (infoUser.getCalorias() <= 99) {  ///pregunta si tiene calorias para gastar
+                        if ((infoUser.getCalorias_max()-infoUser.getCalorias()) >= 99) {  ///pregunta si tiene calorias para gastar
 
                             userDao.actualizarCalorias(db, 99, userName, 0);
                             BtConnectionService.enviarDatosAArduino("1");
@@ -232,7 +232,7 @@ public class MainFragment extends Fragment {
                 if (infoUser.getEdad() != 0) {
 
                     if (stockP3) {
-                        if (infoUser.getCalorias() <= 99) {
+                        if ((infoUser.getCalorias_max()-infoUser.getCalorias()) >= 99) {
 
                             userDao.actualizarCalorias(db, 99, userName, 0);
                             BtConnectionService.enviarDatosAArduino("3");
@@ -272,10 +272,10 @@ public class MainFragment extends Fragment {
 
                 infoUser = userDao.selectAllRows(db, userName);
 
-                if (infoUser.getEdad() != 0) {
+                if (infoUser.getEdad()!=0) {
 
                     if (stockP4) {
-                        if (infoUser.getCalorias() <= 99) {
+                        if ((infoUser.getCalorias_max()-infoUser.getCalorias()) >= 99) {
 
                             userDao.actualizarCalorias(db, 99, userName, 0);
                             BtConnectionService.enviarDatosAArduino("4");

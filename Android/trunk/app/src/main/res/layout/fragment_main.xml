@@ -391,7 +391,7 @@
         android:layout_marginLeft="10dp"
         android:gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Calorias consumidas en el día"
+        android:text="Calorias que puedes consumir"
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="#FFFFFF" />
